@@ -13,6 +13,8 @@ namespace Encore
         public Dictionary<String, Die> DiceList { get; set; }
         public List<String> DiceListKeys { get; set; }
 
+        private Random r = new Random();
+
         public Dice(List<string> diceKeys)
         {
             
@@ -22,10 +24,9 @@ namespace Encore
 
         public void RollDice()
         {
-            
             foreach(String die in DiceListKeys)
             {
-                DiceList[die].Roll();
+                DiceList[die].Roll(r.Next(1, 7));
             }
         }
 

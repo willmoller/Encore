@@ -12,12 +12,17 @@ namespace Encore
 {
     public partial class frmGame : Form
     {
-        Square[,] squares = new Square[7, 15];
-        public List<Square> StarList = new List<Square>();
-        public List<Square> CanClickList;
-        public Dice dice;
-        public List<String> diceKeys;
-        Square[] columnScoring = new Square[15];
+        private Square[,] squares = new Square[7, 15];
+        private List<Square> StarList = new List<Square>();
+        private List<Square> CanClickList;
+        private Dice dice;
+        private List<String> diceKeys;
+        private Square[] columnScoring = new Square[15];
+        private DieNumber numberDieSelected;
+        private DieColor colorDieSelected;
+        private bool numberSelected = false;
+        private bool colorSelected = false;
+        private int turnsLeft;
 
         public frmGame()
         {
@@ -43,7 +48,8 @@ namespace Encore
             dice.DiceList.Add(diceKeys[2], numberDie1);
             dice.DiceList.Add(diceKeys[3], numberDie2);
 
-            
+            turnsLeft = 30;
+            lblTurnsLeft.Text = turnsLeft.ToString();
 
             for (int i = 0; i < 7; i++)
             {
@@ -52,14 +58,23 @@ namespace Encore
                     squares[i, j] = new Square();
                     squares[i, j].BorderStyle = BorderStyle.FixedSingle;
                     squares[i, j].Location = new Point(200 + j * 50, 100 + i * 50);
-                    squares[i, j].Name = $"encoreBox{i}{j}";
+                    //squares[i, j].Name = $"encoreBox{i}{j}";
                     squares[i, j].Size = new Size(50, 50);
                     squares[i, j].SizeMode = PictureBoxSizeMode.StretchImage;
                     squares[i, j].TabStop = true;
+                    
                     squares[i, j].MouseClick += new MouseEventHandler(EncoreBox_Click);
+                    squares[i, j].CanClick = false;
                     Controls.Add(squares[i, j]);
                 }
             }
+
+            pboBonusGreen.BackColor = Color.Lime;
+            pboBonusYellow.BackColor = Color.Yellow;
+            pboBonusBlue.BackColor = Color.DodgerBlue;
+            pboBonusPink.BackColor = Color.HotPink;
+            pboBonusOrange.BackColor = Color.Orange;
+
             SetHColumn();
             SetColors();
             SetStars();
@@ -161,26 +176,30 @@ namespace Encore
             foreach (Square square in CanClickList)
             {
                 square.BorderStyle = BorderStyle.Fixed3D;
+                square.CanClick = true;
             }
         }
 
         private void EncoreBox_Click (Object sender, EventArgs e)
         {
             Square clickedBox = (Square)sender;
-            Bitmap b = new Bitmap(
-                "C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\x.png");
-            b.MakeTransparent(Color.White);
-            clickedBox.Image = b;
-
-            clickedBox.Clicked = true;
-            if (StarList.Contains(clickedBox))
+            if (clickedBox.CanClick)
             {
-                clickedBox.Star = false;
-                StarList.Remove(clickedBox);
+                Bitmap b = new Bitmap(
+                    "C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\x.png");
+                b.MakeTransparent(Color.White);
+                clickedBox.Image = b;
+
+                clickedBox.Clicked = true;
+                if (StarList.Contains(clickedBox))
+                {
+                    clickedBox.Star = false;
+                    StarList.Remove(clickedBox);
+                }
+                CheckColumnScore();
+                CheckColorScore();
+                CheckEndOfGame();
             }
-            CheckColumnScore();
-            CheckColorScore();
-            CheckEndOfGame();
         }
 
         
@@ -307,11 +326,123 @@ namespace Encore
 
         private void btnRoll_Click(object sender, EventArgs e)
         {
+            turnsLeft--;
+            lblTurnsLeft.Text = turnsLeft.ToString();
+
+            foreach (Square square in squares)
+            {
+                square.CanClick = false;
+                square.BorderStyle = BorderStyle.FixedSingle;
+            }
+
+            pboNumberDie1.BorderStyle = BorderStyle.None;
+            pboNumberDie2.BorderStyle = BorderStyle.None;
+            pboColorDie1.BorderStyle = BorderStyle.None;
+            pboColorDie2.BorderStyle = BorderStyle.None;
+
             dice.RollDice();
             pboColorDie1.Image = dice.DiceList["color1"].getImage();
             pboColorDie2.Image = dice.DiceList["color2"].getImage();
             pboNumberDie1.Image = dice.DiceList["number1"].getImage();
             pboNumberDie2.Image = dice.DiceList["number2"].getImage();
+
+
+
+
+
+            foreach (Square square in CanClickList)
+            {
+                square.BorderStyle = BorderStyle.Fixed3D;
+            }
+        }
+
+        private void pboNumberDie1_Click(object sender, EventArgs e)
+        {
+            numberDieSelected = (DieNumber)dice.DiceList["number1"];
+            pboNumberDie1.BackColor = Color.Red;
+            pboNumberDie2.BackColor = Color.Transparent;
+
+            pboNumberDie1.BorderStyle = BorderStyle.Fixed3D;
+            if (pboNumberDie2.BorderStyle == BorderStyle.Fixed3D)
+            {
+                pboNumberDie2.BorderStyle = BorderStyle.None;
+            }
+
+            numberSelected = true;
+            if (colorSelected)
+            {
+                ShowAvailableSquares(numberDieSelected, colorDieSelected);
+            }
+
+        }
+
+        private void pboNumberDie2_Click(object sender, EventArgs e)
+        {
+            numberDieSelected = (DieNumber)dice.DiceList["number2"];
+            pboNumberDie2.BackColor = Color.Red;
+            pboNumberDie1.BackColor = Color.Transparent;
+
+            pboNumberDie2.BorderStyle = BorderStyle.Fixed3D;
+            if (pboNumberDie1.BorderStyle == BorderStyle.Fixed3D)
+            {
+                pboNumberDie1.BorderStyle = BorderStyle.None;
+            }
+
+            numberSelected = true;
+            if (colorSelected)
+            {
+                ShowAvailableSquares(numberDieSelected, colorDieSelected);
+            }
+        }
+
+        private void pboColorDie1_Click(object sender, EventArgs e)
+        {
+            colorDieSelected = (DieColor)dice.DiceList["color1"];
+            pboColorDie1.BackColor = Color.Red;
+            pboColorDie2.BackColor = Color.Transparent;
+
+            pboColorDie1.BorderStyle = BorderStyle.Fixed3D;
+            if (pboColorDie2.BorderStyle == BorderStyle.Fixed3D)
+            {
+                pboColorDie2.BorderStyle = BorderStyle.None;
+            }
+
+            colorSelected = true;
+            if (numberSelected)
+            {
+                ShowAvailableSquares(numberDieSelected, colorDieSelected);
+            }
+        }
+
+        private void pboColorDie2_Click(object sender, EventArgs e)
+        {
+            colorDieSelected = (DieColor)dice.DiceList["color2"];
+            pboColorDie2.BackColor = Color.Red;
+            pboColorDie1.BackColor = Color.Transparent;
+
+            pboColorDie2.BorderStyle = BorderStyle.Fixed3D;
+            if (pboColorDie1.BorderStyle == BorderStyle.Fixed3D)
+            {
+                pboColorDie1.BorderStyle = BorderStyle.None;
+            }
+
+            colorSelected = true;
+            if (numberSelected)
+            {
+                ShowAvailableSquares(numberDieSelected, colorDieSelected);
+            }
+        }
+
+        private void ShowAvailableSquares(DieNumber numberDieSelected, DieColor colorDieSelected)
+        {
+            foreach (Square square in squares)
+            {
+                if (square.BackColor == colorDieSelected.GetColor())
+                {
+                    square.BorderStyle = BorderStyle.Fixed3D;
+                    square.CanClick = true;
+                }
+            }
         }
     }
 }

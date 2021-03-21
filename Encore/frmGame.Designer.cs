@@ -35,11 +35,11 @@
             this.pboColorDie1 = new System.Windows.Forms.PictureBox();
             this.pboColorDie2 = new System.Windows.Forms.PictureBox();
             this.pboEncoreLogo = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pboBonusGreen = new System.Windows.Forms.PictureBox();
+            this.pboBonusYellow = new System.Windows.Forms.PictureBox();
+            this.pboBonusBlue = new System.Windows.Forms.PictureBox();
+            this.pboBonusPink = new System.Windows.Forms.PictureBox();
+            this.pboBonusOrange = new System.Windows.Forms.PictureBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -50,16 +50,18 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblTurnsLeft = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pboNumberDie1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboNumberDie2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboColorDie1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboColorDie2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboEncoreLogo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboBonusGreen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboBonusYellow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboBonusBlue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboBonusPink)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboBonusOrange)).BeginInit();
             this.SuspendLayout();
             // 
             // btnRoll
@@ -77,35 +79,43 @@
             // 
             this.pboNumberDie1.Location = new System.Drawing.Point(12, 148);
             this.pboNumberDie1.Name = "pboNumberDie1";
+            this.pboNumberDie1.Padding = new System.Windows.Forms.Padding(5);
             this.pboNumberDie1.Size = new System.Drawing.Size(100, 90);
             this.pboNumberDie1.TabIndex = 1;
             this.pboNumberDie1.TabStop = false;
+            this.pboNumberDie1.Click += new System.EventHandler(this.pboNumberDie1_Click);
             // 
             // pboNumberDie2
             // 
             this.pboNumberDie2.Location = new System.Drawing.Point(134, 148);
             this.pboNumberDie2.Name = "pboNumberDie2";
+            this.pboNumberDie2.Padding = new System.Windows.Forms.Padding(5);
             this.pboNumberDie2.Size = new System.Drawing.Size(100, 90);
             this.pboNumberDie2.TabIndex = 2;
             this.pboNumberDie2.TabStop = false;
+            this.pboNumberDie2.Click += new System.EventHandler(this.pboNumberDie2_Click);
             // 
             // pboColorDie1
             // 
             this.pboColorDie1.BackColor = System.Drawing.Color.White;
             this.pboColorDie1.Location = new System.Drawing.Point(12, 257);
             this.pboColorDie1.Name = "pboColorDie1";
+            this.pboColorDie1.Padding = new System.Windows.Forms.Padding(5);
             this.pboColorDie1.Size = new System.Drawing.Size(100, 90);
             this.pboColorDie1.TabIndex = 3;
             this.pboColorDie1.TabStop = false;
+            this.pboColorDie1.Click += new System.EventHandler(this.pboColorDie1_Click);
             // 
             // pboColorDie2
             // 
             this.pboColorDie2.BackColor = System.Drawing.Color.White;
             this.pboColorDie2.Location = new System.Drawing.Point(134, 257);
             this.pboColorDie2.Name = "pboColorDie2";
+            this.pboColorDie2.Padding = new System.Windows.Forms.Padding(5);
             this.pboColorDie2.Size = new System.Drawing.Size(100, 90);
             this.pboColorDie2.TabIndex = 4;
             this.pboColorDie2.TabStop = false;
+            this.pboColorDie2.Click += new System.EventHandler(this.pboColorDie2_Click);
             // 
             // pboEncoreLogo
             // 
@@ -117,45 +127,45 @@
             this.pboEncoreLogo.TabIndex = 5;
             this.pboEncoreLogo.TabStop = false;
             // 
-            // pictureBox1
+            // pboBonusGreen
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(1449, 53);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox1.TabIndex = 6;
-            this.pictureBox1.TabStop = false;
+            this.pboBonusGreen.Location = new System.Drawing.Point(1449, 53);
+            this.pboBonusGreen.Name = "pboBonusGreen";
+            this.pboBonusGreen.Size = new System.Drawing.Size(50, 50);
+            this.pboBonusGreen.TabIndex = 6;
+            this.pboBonusGreen.TabStop = false;
             // 
-            // pictureBox2
+            // pboBonusYellow
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(1449, 109);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox2.TabIndex = 7;
-            this.pictureBox2.TabStop = false;
+            this.pboBonusYellow.Location = new System.Drawing.Point(1449, 109);
+            this.pboBonusYellow.Name = "pboBonusYellow";
+            this.pboBonusYellow.Size = new System.Drawing.Size(50, 50);
+            this.pboBonusYellow.TabIndex = 7;
+            this.pboBonusYellow.TabStop = false;
             // 
-            // pictureBox3
+            // pboBonusBlue
             // 
-            this.pictureBox3.Location = new System.Drawing.Point(1449, 165);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox3.TabIndex = 8;
-            this.pictureBox3.TabStop = false;
+            this.pboBonusBlue.Location = new System.Drawing.Point(1449, 165);
+            this.pboBonusBlue.Name = "pboBonusBlue";
+            this.pboBonusBlue.Size = new System.Drawing.Size(50, 50);
+            this.pboBonusBlue.TabIndex = 8;
+            this.pboBonusBlue.TabStop = false;
             // 
-            // pictureBox4
+            // pboBonusPink
             // 
-            this.pictureBox4.Location = new System.Drawing.Point(1449, 221);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox4.TabIndex = 9;
-            this.pictureBox4.TabStop = false;
+            this.pboBonusPink.Location = new System.Drawing.Point(1449, 221);
+            this.pboBonusPink.Name = "pboBonusPink";
+            this.pboBonusPink.Size = new System.Drawing.Size(50, 50);
+            this.pboBonusPink.TabIndex = 9;
+            this.pboBonusPink.TabStop = false;
             // 
-            // pictureBox5
+            // pboBonusOrange
             // 
-            this.pictureBox5.Location = new System.Drawing.Point(1449, 277);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox5.TabIndex = 10;
-            this.pictureBox5.TabStop = false;
+            this.pboBonusOrange.Location = new System.Drawing.Point(1449, 277);
+            this.pboBonusOrange.Name = "pboBonusOrange";
+            this.pboBonusOrange.Size = new System.Drawing.Size(50, 50);
+            this.pboBonusOrange.TabIndex = 10;
+            this.pboBonusOrange.TabStop = false;
             // 
             // textBox1
             // 
@@ -252,12 +262,37 @@
             this.label4.TabIndex = 24;
             this.label4.Text = "BONUS";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.BackColor = System.Drawing.Color.White;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(59, 490);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(120, 29);
+            this.label6.TabIndex = 25;
+            this.label6.Text = "Turns Left";
+            // 
+            // lblTurnsLeft
+            // 
+            this.lblTurnsLeft.AutoSize = true;
+            this.lblTurnsLeft.BackColor = System.Drawing.Color.White;
+            this.lblTurnsLeft.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTurnsLeft.Location = new System.Drawing.Point(80, 551);
+            this.lblTurnsLeft.Name = "lblTurnsLeft";
+            this.lblTurnsLeft.Size = new System.Drawing.Size(78, 55);
+            this.lblTurnsLeft.TabIndex = 26;
+            this.lblTurnsLeft.Text = "30";
+            this.lblTurnsLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1632, 703);
+            this.Controls.Add(this.lblTurnsLeft);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -268,11 +303,11 @@
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.pictureBox5);
-            this.Controls.Add(this.pictureBox4);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pboBonusOrange);
+            this.Controls.Add(this.pboBonusPink);
+            this.Controls.Add(this.pboBonusBlue);
+            this.Controls.Add(this.pboBonusYellow);
+            this.Controls.Add(this.pboBonusGreen);
             this.Controls.Add(this.pboEncoreLogo);
             this.Controls.Add(this.pboColorDie2);
             this.Controls.Add(this.pboColorDie1);
@@ -288,11 +323,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pboColorDie1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboColorDie2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboEncoreLogo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboBonusGreen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboBonusYellow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboBonusBlue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboBonusPink)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboBonusOrange)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -306,11 +341,11 @@
         private System.Windows.Forms.PictureBox pboColorDie1;
         private System.Windows.Forms.PictureBox pboColorDie2;
         private System.Windows.Forms.PictureBox pboEncoreLogo;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.PictureBox pboBonusGreen;
+        private System.Windows.Forms.PictureBox pboBonusYellow;
+        private System.Windows.Forms.PictureBox pboBonusBlue;
+        private System.Windows.Forms.PictureBox pboBonusPink;
+        private System.Windows.Forms.PictureBox pboBonusOrange;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
@@ -321,5 +356,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblTurnsLeft;
     }
 }

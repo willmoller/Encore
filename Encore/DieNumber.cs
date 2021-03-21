@@ -27,9 +27,35 @@ namespace Encore
                 "C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black1.png");
         }
 
-        public override int Roll()
+        public override void Roll(int randomNumber)
         {
-            return r.Next(1, sides + 1);
+            switch (randomNumber)
+            {
+                case 1:
+                    numberFace = NumberFace.One;
+                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black1.png");
+                    break;
+                case 2:
+                    numberFace = NumberFace.Two;
+                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black2.png");
+                    break;
+                case 3:
+                    numberFace = NumberFace.Three;
+                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black3.png");
+                    break;
+                case 4:
+                    numberFace = NumberFace.Four;
+                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black4.png");
+                    break;
+                case 5:
+                    numberFace = NumberFace.Five;
+                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black5.png");
+                    break;
+                case 6:
+                    numberFace = NumberFace.Wild;
+                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black6.png");
+                    break;
+            }
         }
 
         public override Bitmap getImage()

@@ -10,10 +10,9 @@ namespace Encore
     public abstract class Die
     {
         protected int sides;
-        protected Random r = new Random();
         protected Bitmap dieImage;
 
-        public abstract int Roll();
+        public abstract void Roll(int randomNumber);
 
         public abstract Bitmap getImage();
 

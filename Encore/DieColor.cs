@@ -29,11 +29,10 @@ namespace Encore
                 "C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\bluex.png");
         }
 
-        public override int Roll()
+        public override void Roll(int randomNumber)
         {
-            int result = r.Next(1, sides + 1);
-
-            switch(result){
+            switch(randomNumber)
+            {
                 case 1:
                     colorFace = ColorFace.Blue;
                     dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\bluex.png");
@@ -59,8 +58,6 @@ namespace Encore
                     dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\x.png");
                     break;
             }
-
-            return result;
         }
 
         public override Bitmap getImage()
@@ -71,6 +68,25 @@ namespace Encore
         public override void setImage(Bitmap newImage)
         {
             dieImage = newImage;
+        }
+
+        public Color GetColor()
+        {
+            switch (colorFace)
+            {
+                case ColorFace.Green:
+                    return Color.Lime;
+                case ColorFace.Yellow:
+                    return Color.Yellow;
+                case ColorFace.Blue:
+                    return Color.DodgerBlue;
+                case ColorFace.Pink:
+                    return Color.HotPink;
+                case ColorFace.Orange:
+                    return Color.Orange;
+                default:
+                    return Color.Black;
+            }
         }
     }
 }
