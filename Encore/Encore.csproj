@@ -71,7 +71,8 @@
     <Reference Include="Zstandard.Net, Version=1.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBBoards.cs" />
+    <Compile Include="Board.cs" />
+    <Compile Include="DataAccess\BoardDB.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="Die.cs" />
     <Compile Include="DieColor.cs" />
@@ -80,6 +81,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>encoreDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\EncoreDB.cs" />
     <Compile Include="frmGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +100,8 @@
     <Compile Include="Square.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="User.cs" />
+    <Compile Include="DataAccess\UserDB.cs" />
     <EmbeddedResource Include="frmGame.resx">
       <DependentUpon>frmGame.cs</DependentUpon>
     </EmbeddedResource>

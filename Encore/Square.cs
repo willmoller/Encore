@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,9 @@ namespace Encore
         public bool CanClick { get; set; }
         public bool Clicked { get; set; }
         public int GroupSize { get; set; }
-        public string GroupName { get; set; }
+        public int GroupId { get; set; }
+        public Color Color { get; set; }
+
 
         //private bool star;
         //private bool canClick;

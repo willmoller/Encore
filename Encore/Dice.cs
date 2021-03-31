@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Encore
 {
-    
-    
+
     public class Dice
     {
         public Dictionary<String, Die> DiceList { get; set; }

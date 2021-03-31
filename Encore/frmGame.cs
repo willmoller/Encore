@@ -12,6 +12,7 @@ namespace Encore
 {
     public partial class frmGame : Form
     {
+        public Board GameBoard { get; set; }
         private Square[,] squares = new Square[7, 15];
         private List<Square> StarList = new List<Square>();
         private List<Square> CanClickList;
@@ -55,26 +56,19 @@ namespace Encore
             {
                 for (int j = 0; j < 15; j++)
                 {
-                    squares[i, j] = new Square();
-                    squares[i, j].BorderStyle = BorderStyle.FixedSingle;
-                    squares[i, j].Location = new Point(200 + j * 50, 100 + i * 50);
+                    GameBoard.Squares[i, j] = new Square();
+                    GameBoard.Squares[i, j].BorderStyle = BorderStyle.FixedSingle;
+                    GameBoard.Squares[i, j].Location = new Point(200 + j * 50, 100 + i * 50);
                     //squares[i, j].Name = $"encoreBox{i}{j}";
-                    squares[i, j].Size = new Size(50, 50);
-                    squares[i, j].SizeMode = PictureBoxSizeMode.StretchImage;
-                    squares[i, j].TabStop = true;
-                    
-                    squares[i, j].MouseClick += new MouseEventHandler(EncoreBox_Click);
-                    squares[i, j].CanClick = false;
-                    Controls.Add(squares[i, j]);
+                    GameBoard.Squares[i, j].Size = new Size(50, 50);
+                    GameBoard.Squares[i, j].SizeMode = PictureBoxSizeMode.StretchImage;
+                    GameBoard.Squares[i, j].TabStop = true;
+
+                    GameBoard.Squares[i, j].MouseClick += new MouseEventHandler(EncoreBox_Click);
+                    GameBoard.Squares[i, j].CanClick = false;
+                    Controls.Add(GameBoard.Squares[i, j]);
                 }
             }
-
-            pboBonusGreen.BackColor = Color.Lime;
-            pboBonusYellow.BackColor = Color.Yellow;
-            pboBonusBlue.BackColor = Color.DodgerBlue;
-            pboBonusPink.BackColor = Color.HotPink;
-            pboBonusOrange.BackColor = Color.Orange;
-
             SetHColumn();
             SetColors();
             SetStars();
@@ -134,7 +128,11 @@ namespace Encore
 
         private void SetScoringBoxes()
         {
-            
+            pboBonusGreen.BackColor = Color.Lime;
+            pboBonusYellow.BackColor = Color.Yellow;
+            pboBonusBlue.BackColor = Color.DodgerBlue;
+            pboBonusPink.BackColor = Color.HotPink;
+            pboBonusOrange.BackColor = Color.Orange;
         }
 
         private void SetDice()
@@ -150,30 +148,21 @@ namespace Encore
             pboColorDie1.Image = dice.DiceList["color1"].getImage();
             pboColorDie2.SizeMode = PictureBoxSizeMode.StretchImage;
             pboColorDie2.Image = dice.DiceList["color2"].getImage();
-
-            //DieColor colorDie1 = new DieColor();
-            //DieColor colorDie2 = new DieColor();
-            //DieNumber numberDie1 = new DieNumber();
-            //DieNumber numberDie2 = new DieNumber();
-            //dice.Add(colorDie1);
-            //dice.Add(colorDie2);
-            //dice.Add(numberDie1);
-            //dice.Add(numberDie2);
         }
 
         private void SetHColumn()
         {
             CanClickList = new List<Square>()
             {
-                squares[0, 7],
-                squares[1, 7],
-                squares[2, 7],
-                squares[3, 7],
-                squares[4, 7],
-                squares[5, 7],
-                squares[6, 7]
+                GameBoard.Squares[0, 7],
+                GameBoard.Squares[1, 7],
+                GameBoard.Squares[2, 7],
+                GameBoard.Squares[3, 7],
+                GameBoard.Squares[4, 7],
+                GameBoard.Squares[5, 7],
+                GameBoard.Squares[6, 7]
             };
-            foreach (Square square in CanClickList)
+            foreach (Square square in GameBoard.Squares)
             {
                 square.BorderStyle = BorderStyle.Fixed3D;
                 square.CanClick = true;
@@ -202,30 +191,12 @@ namespace Encore
             }
         }
 
-        
-
         private void SetStars()
         {
-            
-            StarList.Add(squares[0, 7]);
-            StarList.Add(squares[0, 11]);
-            StarList.Add(squares[1, 2]);
-            StarList.Add(squares[1, 4]);
-            StarList.Add(squares[1, 9]);
-            StarList.Add(squares[2, 0]);
-            StarList.Add(squares[2, 6]);
-            StarList.Add(squares[3, 5]);
-            StarList.Add(squares[3, 13]);
-            StarList.Add(squares[5, 1]);
-            StarList.Add(squares[5, 3]);
-            StarList.Add(squares[5, 8]);
-            StarList.Add(squares[5, 10]);
-            StarList.Add(squares[5, 14]);
-            StarList.Add(squares[6, 12]);
+            StarList = GameBoard.GetStarList();
 
             foreach (Square square in StarList)
             {
-                square.Star = true;
                 square.Image = Image.FromFile(
                         "C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\star.png");
             }
