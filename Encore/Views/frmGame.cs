@@ -12,7 +12,7 @@ namespace Encore
 {
     public partial class frmGame : Form
     {
-        public Board GameBoard { get; set; }
+        public Board Board { get; set; }
         private Square[,] squares = new Square[7, 15];
         private List<Square> StarList = new List<Square>();
         private List<Square> CanClickList;
@@ -56,17 +56,17 @@ namespace Encore
             {
                 for (int j = 0; j < 15; j++)
                 {
-                    GameBoard.Squares[i, j] = new Square();
-                    GameBoard.Squares[i, j].BorderStyle = BorderStyle.FixedSingle;
-                    GameBoard.Squares[i, j].Location = new Point(200 + j * 50, 100 + i * 50);
+                    Board.Squares[i, j] = new Square();
+                    Board.Squares[i, j].BorderStyle = BorderStyle.FixedSingle;
+                    Board.Squares[i, j].Location = new Point(200 + j * 50, 100 + i * 50);
                     //squares[i, j].Name = $"encoreBox{i}{j}";
-                    GameBoard.Squares[i, j].Size = new Size(50, 50);
-                    GameBoard.Squares[i, j].SizeMode = PictureBoxSizeMode.StretchImage;
-                    GameBoard.Squares[i, j].TabStop = true;
+                    Board.Squares[i, j].Size = new Size(50, 50);
+                    Board.Squares[i, j].SizeMode = PictureBoxSizeMode.StretchImage;
+                    Board.Squares[i, j].TabStop = true;
 
-                    GameBoard.Squares[i, j].MouseClick += new MouseEventHandler(EncoreBox_Click);
-                    GameBoard.Squares[i, j].CanClick = false;
-                    Controls.Add(GameBoard.Squares[i, j]);
+                    Board.Squares[i, j].MouseClick += new MouseEventHandler(EncoreBox_Click);
+                    Board.Squares[i, j].CanClick = false;
+                    Controls.Add(Board.Squares[i, j]);
                 }
             }
             SetHColumn();
@@ -154,15 +154,15 @@ namespace Encore
         {
             CanClickList = new List<Square>()
             {
-                GameBoard.Squares[0, 7],
-                GameBoard.Squares[1, 7],
-                GameBoard.Squares[2, 7],
-                GameBoard.Squares[3, 7],
-                GameBoard.Squares[4, 7],
-                GameBoard.Squares[5, 7],
-                GameBoard.Squares[6, 7]
+                Board.Squares[0, 7],
+                Board.Squares[1, 7],
+                Board.Squares[2, 7],
+                Board.Squares[3, 7],
+                Board.Squares[4, 7],
+                Board.Squares[5, 7],
+                Board.Squares[6, 7]
             };
-            foreach (Square square in GameBoard.Squares)
+            foreach (Square square in Board.Squares)
             {
                 square.BorderStyle = BorderStyle.Fixed3D;
                 square.CanClick = true;
@@ -193,7 +193,7 @@ namespace Encore
 
         private void SetStars()
         {
-            StarList = GameBoard.GetStarList();
+            StarList = Board.GetStarList();
 
             foreach (Square square in StarList)
             {

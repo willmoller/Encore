@@ -71,41 +71,41 @@
     <Reference Include="Zstandard.Net, Version=1.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Board.cs" />
+    <Compile Include="Models\Board.cs" />
     <Compile Include="DataAccess\BoardDB.cs" />
-    <Compile Include="Dice.cs" />
-    <Compile Include="Die.cs" />
-    <Compile Include="DieColor.cs" />
+    <Compile Include="Models\Dice.cs" />
+    <Compile Include="Models\Die.cs" />
+    <Compile Include="Models\DieColor.cs" />
     <Compile Include="encoreDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>encoreDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="DataAccess\EncoreDB.cs" />
-    <Compile Include="frmGame.cs">
+    <Compile Include="Views\frmGame.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGame.Designer.cs">
+    <Compile Include="Views\frmGame.Designer.cs">
       <DependentUpon>frmGame.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMainMenu.cs">
+    <Compile Include="Views\frmMainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMainMenu.Designer.cs">
+    <Compile Include="Views\frmMainMenu.Designer.cs">
       <DependentUpon>frmMainMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="DieNumber.cs" />
+    <Compile Include="Models\DieNumber.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Square.cs">
+    <Compile Include="Models\Square.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="User.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="DataAccess\UserDB.cs" />
-    <EmbeddedResource Include="frmGame.resx">
+    <EmbeddedResource Include="Views\frmGame.resx">
       <DependentUpon>frmGame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMainMenu.resx">
+    <EmbeddedResource Include="Views\frmMainMenu.resx">
       <DependentUpon>frmMainMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
