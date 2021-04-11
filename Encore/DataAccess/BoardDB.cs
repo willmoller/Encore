@@ -70,7 +70,7 @@ namespace Encore
                             board.GreenSquares[i].Star = true;
                         }
                         board.GreenSquares[i].GroupSize = Int32.Parse(greenArray[3]);
-                        board.GreenSquares[i].Group = "b" + greenArray[3];
+                        board.GreenSquares[i].Group = "g" + greenArray[3];
                         board.GreenSquares[i].SetSquareName();
                         board.AllSquares.Add(board.GreenSquares[i].GetSquareName(), board.GreenSquares[i]);
                     }
@@ -90,7 +90,7 @@ namespace Encore
                             board.OrangeSquares[i].Star = true;
                         }
                         board.OrangeSquares[i].GroupSize = Int32.Parse(orangeArray[3]);
-                        board.OrangeSquares[i].Group = "b" + orangeArray[3];
+                        board.OrangeSquares[i].Group = "o" + orangeArray[3];
                         board.OrangeSquares[i].SetSquareName();
                         board.AllSquares.Add(board.OrangeSquares[i].GetSquareName(), board.OrangeSquares[i]);
                     }
@@ -110,7 +110,7 @@ namespace Encore
                             board.PinkSquares[i].Star = true;
                         }
                         board.PinkSquares[i].GroupSize = Int32.Parse(pinkArray[3]);
-                        board.PinkSquares[i].Group = "b" + pinkArray[3];
+                        board.PinkSquares[i].Group = "p" + pinkArray[3];
                         board.PinkSquares[i].SetSquareName();
                         board.AllSquares.Add(board.PinkSquares[i].GetSquareName(), board.PinkSquares[i]);
                     }
@@ -130,7 +130,7 @@ namespace Encore
                             board.YellowSquares[i].Star = true;
                         }
                         board.YellowSquares[i].GroupSize = Int32.Parse(yellowArray[3]);
-                        board.YellowSquares[i].Group = "b" + yellowArray[3];
+                        board.YellowSquares[i].Group = "y" + yellowArray[3];
                         board.YellowSquares[i].SetSquareName();
                         board.AllSquares.Add(board.YellowSquares[i].GetSquareName(), board.YellowSquares[i]);
                     }

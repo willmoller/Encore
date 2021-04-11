@@ -8,20 +8,9 @@ using System.Threading.Tasks;
 
 namespace Encore
 {
-    enum ColorFace
-    {
-        Green = 1,
-        Blue = 2,
-        Yellow = 3,
-        Orange = 4,
-        Pink = 5,
-        Wild = 6
-    }
-
-
     public class DieColor : Die
     {
-        private ColorFace colorFace;
+        private string colorFace;
 
         public DieColor()
         {
@@ -39,37 +28,37 @@ namespace Encore
             switch(randomNumber)
             {
                 case 1:
-                    colorFace = ColorFace.Blue;
+                    colorFace = "blue";
                     filename = "..\\..\\Images\\bluex.png";
                     path = Path.Combine(Environment.CurrentDirectory, filename);
                     dieImage = new Bitmap(path);
                     break;
                 case 2:
-                    colorFace = ColorFace.Green;
+                    colorFace = "green";
                     filename = "..\\..\\Images\\greenx.png";
                     path = Path.Combine(Environment.CurrentDirectory, filename);
                     dieImage = new Bitmap(path);
                     break;
                 case 3:
-                    colorFace = ColorFace.Orange;
+                    colorFace = "orange";
                     filename = "..\\..\\Images\\orangex.png";
                     path = Path.Combine(Environment.CurrentDirectory, filename);
                     dieImage = new Bitmap(path);
                     break;
                 case 4:
-                    colorFace = ColorFace.Pink;
+                    colorFace = "pink";
                     filename = "..\\..\\Images\\pinkx.png";
                     path = Path.Combine(Environment.CurrentDirectory, filename);
                     dieImage = new Bitmap(path);
                     break;
                 case 5:
-                    colorFace = ColorFace.Yellow;
+                    colorFace = "yellow";
                     filename = "..\\..\\Images\\yellowx.png";
                     path = Path.Combine(Environment.CurrentDirectory, filename);
                     dieImage = new Bitmap(path);
                     break;
                 case 6:
-                    colorFace = ColorFace.Wild;
+                    colorFace = "wild";
                     filename = "..\\..\\Images\\x.png";
                     path = Path.Combine(Environment.CurrentDirectory, filename);
                     dieImage = new Bitmap(path);
@@ -87,23 +76,9 @@ namespace Encore
             dieImage = newImage;
         }
 
-        public Color GetColor()
+        public string GetColor()
         {
-            switch (colorFace)
-            {
-                case ColorFace.Green:
-                    return Color.Lime;
-                case ColorFace.Yellow:
-                    return Color.Yellow;
-                case ColorFace.Blue:
-                    return Color.DodgerBlue;
-                case ColorFace.Pink:
-                    return Color.HotPink;
-                case ColorFace.Orange:
-                    return Color.Orange;
-                default:
-                    return Color.Black;
-            }
+            return colorFace;
         }
     }
 }

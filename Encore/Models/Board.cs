@@ -70,58 +70,72 @@ namespace Encore
             }
         }
 
-        public bool CheckIfAdjacent(string color, int number, string name)
+        public bool CheckIfClickable(string color, int number, string name)
         {
-            switch (color)
+            bool correctGroupSize = false;
+            if (AllSquares[name].GroupSize <= number)
             {
-                case "b":
-                    foreach (Square s in BlueSquares)
-                    {
-                        if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                case "g":
-                    foreach (Square s in GreenSquares)
-                    {
-                        if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                case "o":
-                    foreach (Square s in OrangeSquares)
-                    {
-                        if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                case "p":
-                    foreach (Square s in PinkSquares)
-                    {
-                        if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                case "y":
-                    foreach (Square s in YellowSquares)
-                    {
-                        if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
-                        {
-                            return true;
-                        }
-                    }
-                    return false;
-                default:
-                    return false;
+                correctGroupSize = true;
             }
+
+            bool correctColor = false;
+            if (AllSquares[name].Group.Substring(0,1) == color)
+            {
+                correctColor = true;
+            }
+
+            return AllSquares[name].GetCanClick() && correctGroupSize && correctColor;
+            
+            //switch (color)
+            //{
+            //    case "b":
+            //        foreach (Square s in BlueSquares)
+            //        {
+            //            if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
+            //            {
+            //                return true;
+            //            }
+            //        }
+            //        return false;
+            //    case "g":
+            //        foreach (Square s in GreenSquares)
+            //        {
+            //            if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
+            //            {
+            //                return true;
+            //            }
+            //        }
+            //        return false;
+            //    case "o":
+            //        foreach (Square s in OrangeSquares)
+            //        {
+            //            if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
+            //            {
+            //                return true;
+            //            }
+            //        }
+            //        return false;
+            //    case "p":
+            //        foreach (Square s in PinkSquares)
+            //        {
+            //            if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
+            //            {
+            //                return true;
+            //            }
+            //        }
+            //        return false;
+            //    case "y":
+            //        foreach (Square s in YellowSquares)
+            //        {
+            //            if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
+            //            {
+            //                return true;
+            //            }
+            //        }
+            //        return false;
+            //    default:
+            //        return false;
+            //}
         }
 
         public bool CheckIfStar(string color, PictureBox box)
@@ -131,12 +145,12 @@ namespace Encore
 
         public void SetClickedBox(string color, PictureBox box)
         {
+            SetClickedTrue(box.Name);
             string[] coordinateStrings = box.Name.Split(',');
             int xCoordinate = Int32.Parse(coordinateStrings[0]);
             int yCoordinate = Int32.Parse(coordinateStrings[1]);
             int newX, newY;
             Square tempSquare;
-
 
             if (xCoordinate > 0)
             {
@@ -173,6 +187,16 @@ namespace Encore
                 if (!tempSquare.Clicked)
                     tempSquare.SetCanClickTrue();
             }
+        }
+
+        internal void SetCanClickTrue(string name)
+        {
+            AllSquares[name].SetCanClickTrue();
+        }
+
+        internal void SetClickedTrue(string name)
+        {
+            AllSquares[name].SetClickedTrue();
         }
     }
 }

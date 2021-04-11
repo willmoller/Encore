@@ -27,7 +27,7 @@ namespace Encore
 
         public Square()
         {
-            //this.SetStyle(ControlStyles.Selectable, true);
+            canClick = false;
         }
 
         public void SetSquareName()
@@ -48,6 +48,11 @@ namespace Encore
         public void SetCanClickTrue()
         {
             canClick = true;
+        }
+
+        public void SetClickedTrue()
+        {
+            Clicked = true;
         }
     }
 }

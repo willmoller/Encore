@@ -52,6 +52,11 @@ namespace Encore
             dice.DiceList.Add(diceKeys[2], numberDie1);
             dice.DiceList.Add(diceKeys[3], numberDie2);
 
+            pboColorDie1.Enabled = false;
+            pboColorDie2.Enabled = false;
+            pboNumberDie1.Enabled = false;
+            pboNumberDie2.Enabled = false;
+
             turnsLeft = 30;
             lblTurnsLeft.Text = turnsLeft.ToString();
 
@@ -62,6 +67,8 @@ namespace Encore
             CreatePictureBoxes(Board.OrangeSquares, Color.Orange);
             CreatePictureBoxes(Board.PinkSquares, Color.HotPink);
             CreatePictureBoxes(Board.YellowSquares, Color.Yellow);
+
+            
 
             SetHColumn();
             //SetColors();
@@ -93,6 +100,7 @@ namespace Encore
                 box.BackColor = color;
                 box.Enabled = false;
                 Boxes.Add(box);
+                //Board.AllSquares.Add(box.Name, square);
                 Controls.Add(box);
             }
         }
@@ -178,25 +186,22 @@ namespace Encore
 
         private void SetHColumn()
         {
-            //CanClickList = new List<PictureBox>()
-            //{
-            //    Board.Squares[0, 7],
-            //    Board.Squares[1, 7],
-            //    Board.Squares[2, 7],
-            //    Board.Squares[3, 7],
-            //    Board.Squares[4, 7],
-            //    Board.Squares[5, 7],
-            //    Board.Squares[6, 7]
-            //};
-            //foreach (Square square in Board.Squares)
-            //{
-            //    square.BorderStyle = BorderStyle.Fixed3D;
-            //    square.CanClick = true;
-            //}
+            Board.SetCanClickTrue("0,7");
+            Board.SetCanClickTrue("1,7");
+            Board.SetCanClickTrue("2,7");
+            Board.SetCanClickTrue("3,7");
+            Board.SetCanClickTrue("4,7");
+            Board.SetCanClickTrue("5,7");
+            Board.SetCanClickTrue("6,7");
         }
 
         private void EncoreBox_Click (Object sender, EventArgs e)
         {
+            pboColorDie1.Enabled = false;
+            pboColorDie2.Enabled = false;
+            pboNumberDie1.Enabled = false;
+            pboNumberDie2.Enabled = false;
+
             PictureBox clickedBox = (PictureBox)sender;
             string filename = "..\\..\\Images\\x.png";
             string path = Path.Combine(Environment.CurrentDirectory, filename);
@@ -234,6 +239,14 @@ namespace Encore
 
         private void btnRoll_Click(object sender, EventArgs e)
         {
+            pboColorDie1.Enabled = true;
+            pboColorDie2.Enabled = true;
+            pboNumberDie1.Enabled = true;
+            pboNumberDie2.Enabled = true;
+            colorSelected = false;
+            numberSelected = false;
+
+
             turnsLeft--;
             lblTurnsLeft.Text = turnsLeft.ToString();
 
@@ -338,10 +351,10 @@ namespace Encore
         private void ShowAvailableSquares(DieNumber numberDieSelected, DieColor colorDieSelected)
         {
 
-            string dieColor = colorDieSelected.GetColor().ToString().Substring(0, 1);
+            string dieColor = colorDieSelected.GetColor().Substring(0, 1);
             int dieNumber = numberDieSelected.getNumberFace();
 
-            if (dieColor == "b" && dieNumber == -1)
+            if (dieColor == "w" && dieNumber == -1)
             {
                 // any color/number combination
                 foreach (PictureBox box in Boxes)
@@ -350,7 +363,7 @@ namespace Encore
                     box.Enabled = true;
                 }
 
-            } else if (dieColor == "b")
+            } else if (dieColor == "w")
             {
                 // any color possible with specific number
 
@@ -365,30 +378,14 @@ namespace Encore
                 // specific number and color only
                 foreach (PictureBox box in Boxes)
                 {
-                    box.BorderStyle = BorderStyle.None;
                     box.Enabled = false;
 
-                    if (box.Tag.ToString().Substring(0, 1).Equals(dieColor))
+                    if (box.Tag.ToString().Substring(0, 1).Equals(dieColor) && Board.CheckIfClickable(dieColor, dieNumber, box.Name))
                     {
-                        if (Board.CheckIfAdjacent(dieColor, dieNumber, box.Name))
-                        {
-                            box.BorderStyle = BorderStyle.Fixed3D;
-                            box.Enabled = true;
-                        }
+                        box.BorderStyle = BorderStyle.Fixed3D;
+                        box.Enabled = true;
                     }
-                    //if (box.Tag.ToString().Equals(dieColor + dieNumber) && 
-                    //    Board.g
-                    //    //Board.getGroupSize(box.Tag.ToString()) <= dieNumber)
-                    //{
-
-                    //}
                 }
-
-            }
-
-            foreach (PictureBox box in Boxes)
-            {
-                box.Enabled = true;
             }
         }
     }
