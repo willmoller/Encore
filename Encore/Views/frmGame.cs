@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,12 +14,14 @@ namespace Encore
     public partial class frmGame : Form
     {
         public Board Board { get; set; }
-        private Square[,] squares = new Square[7, 15];
-        private List<Square> StarList = new List<Square>();
-        private List<Square> CanClickList;
+        //private Square[,] squares = new Square[7, 15];
+        private int starsRemaining = 15;
+        //private List<Square> StarList = new List<Square>();
+        //private List<Square> CanClickList;
+        private List<PictureBox> Boxes;
         private Dice dice;
         private List<String> diceKeys;
-        private Square[] columnScoring = new Square[15];
+        private PictureBox[] columnScoring = new PictureBox[15];
         private DieNumber numberDieSelected;
         private DieColor colorDieSelected;
         private bool numberSelected = false;
@@ -52,37 +55,53 @@ namespace Encore
             turnsLeft = 30;
             lblTurnsLeft.Text = turnsLeft.ToString();
 
-            for (int i = 0; i < 7; i++)
-            {
-                for (int j = 0; j < 15; j++)
-                {
-                    Board.Squares[i, j] = new Square();
-                    Board.Squares[i, j].BorderStyle = BorderStyle.FixedSingle;
-                    Board.Squares[i, j].Location = new Point(200 + j * 50, 100 + i * 50);
-                    //squares[i, j].Name = $"encoreBox{i}{j}";
-                    Board.Squares[i, j].Size = new Size(50, 50);
-                    Board.Squares[i, j].SizeMode = PictureBoxSizeMode.StretchImage;
-                    Board.Squares[i, j].TabStop = true;
+            Boxes = new List<PictureBox>();
+            Board = BoardDB.GetBoardById(1);
+            CreatePictureBoxes(Board.BlueSquares, Color.DodgerBlue);
+            CreatePictureBoxes(Board.GreenSquares, Color.Lime);
+            CreatePictureBoxes(Board.OrangeSquares, Color.Orange);
+            CreatePictureBoxes(Board.PinkSquares, Color.HotPink);
+            CreatePictureBoxes(Board.YellowSquares, Color.Yellow);
 
-                    Board.Squares[i, j].MouseClick += new MouseEventHandler(EncoreBox_Click);
-                    Board.Squares[i, j].CanClick = false;
-                    Controls.Add(Board.Squares[i, j]);
-                }
-            }
             SetHColumn();
-            SetColors();
-            SetStars();
+            //SetColors();
+            //SetStars();
             SetDice();
             SetColumnPoints();
             SetWilds();
             SetScoringBoxes();
         }
 
+        private void CreatePictureBoxes(Square[] squares, Color color)
+        {
+            foreach (Square square in squares)
+            {
+                PictureBox box = new PictureBox();
+                if (square.Star)
+                {
+                    string filename = "..\\..\\Images\\star.png";
+                    string path = Path.Combine(Environment.CurrentDirectory, filename);
+                    box.Image = new Bitmap(path);
+                }
+                box.BorderStyle = BorderStyle.FixedSingle;
+                box.Location = new Point(200 + (square.YCoordinate * 50), 100 + (square.XCoordinate * 50));
+                box.Size = new Size(50, 50);
+                box.Name = square.GetSquareName();
+                box.Tag = square.Group;
+                box.SizeMode = PictureBoxSizeMode.StretchImage;
+                box.MouseClick += new MouseEventHandler(EncoreBox_Click);
+                box.BackColor = color;
+                box.Enabled = false;
+                Boxes.Add(box);
+                Controls.Add(box);
+            }
+        }
+
         private void SetColumnPoints()
         {
             for (int i = 0; i < columnScoring.Length; i++)
             {
-                columnScoring[i] = new Square();
+                columnScoring[i] = new PictureBox();
                 columnScoring[i].BorderStyle = BorderStyle.FixedSingle;
                 columnScoring[i].Location = new Point(200 + i * 50, 475);
                 columnScoring[i].Size = new Size(50, 50);
@@ -91,17 +110,24 @@ namespace Encore
                 Controls.Add(columnScoring[i]);
             }
 
-            Bitmap five = new Bitmap(
-                "C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\number5.png");
+            string filename = "..\\..\\Images\\number5.png";
+            string path = Path.Combine(Environment.CurrentDirectory, filename);
+            Bitmap five = new Bitmap(path);
             five.MakeTransparent(Color.White);
-            Bitmap three = new Bitmap(
-                "C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\number3.png");
+
+            filename = "..\\..\\Images\\number3.png";
+            path = Path.Combine(Environment.CurrentDirectory, filename);
+            Bitmap three = new Bitmap(path);
             three.MakeTransparent(Color.White);
-            Bitmap two = new Bitmap(
-                "C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\number2.png");
+
+            filename = "..\\..\\Images\\number2.png";
+            path = Path.Combine(Environment.CurrentDirectory, filename);
+            Bitmap two = new Bitmap(path);
             two.MakeTransparent(Color.White);
-            Bitmap one = new Bitmap(
-                "C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\number1.png");
+
+            filename = "..\\..\\Images\\number1.png";
+            path = Path.Combine(Environment.CurrentDirectory, filename);
+            Bitmap one = new Bitmap(path);
             one.MakeTransparent(Color.White);
 
             columnScoring[0].Image = five;
@@ -152,134 +178,45 @@ namespace Encore
 
         private void SetHColumn()
         {
-            CanClickList = new List<Square>()
-            {
-                Board.Squares[0, 7],
-                Board.Squares[1, 7],
-                Board.Squares[2, 7],
-                Board.Squares[3, 7],
-                Board.Squares[4, 7],
-                Board.Squares[5, 7],
-                Board.Squares[6, 7]
-            };
-            foreach (Square square in Board.Squares)
-            {
-                square.BorderStyle = BorderStyle.Fixed3D;
-                square.CanClick = true;
-            }
+            //CanClickList = new List<PictureBox>()
+            //{
+            //    Board.Squares[0, 7],
+            //    Board.Squares[1, 7],
+            //    Board.Squares[2, 7],
+            //    Board.Squares[3, 7],
+            //    Board.Squares[4, 7],
+            //    Board.Squares[5, 7],
+            //    Board.Squares[6, 7]
+            //};
+            //foreach (Square square in Board.Squares)
+            //{
+            //    square.BorderStyle = BorderStyle.Fixed3D;
+            //    square.CanClick = true;
+            //}
         }
 
         private void EncoreBox_Click (Object sender, EventArgs e)
         {
-            Square clickedBox = (Square)sender;
-            if (clickedBox.CanClick)
-            {
-                Bitmap b = new Bitmap(
-                    "C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\x.png");
-                b.MakeTransparent(Color.White);
-                clickedBox.Image = b;
+            PictureBox clickedBox = (PictureBox)sender;
+            string filename = "..\\..\\Images\\x.png";
+            string path = Path.Combine(Environment.CurrentDirectory, filename);
+            Bitmap b = new Bitmap(path);
+            b.MakeTransparent(Color.White);
+            clickedBox.Image = b;
+            Board.SetClickedBox(clickedBox.BackColor.ToString(), clickedBox);
+            
 
-                clickedBox.Clicked = true;
-                if (StarList.Contains(clickedBox))
-                {
-                    clickedBox.Star = false;
-                    StarList.Remove(clickedBox);
-                }
-                CheckColumnScore();
-                CheckColorScore();
-                CheckEndOfGame();
-            }
+            //clickedBox.Clicked = true;
+            //if (StarList.Contains(clickedBox))
+            //{
+            //    clickedBox.Star = false;
+            //    StarList.Remove(clickedBox);
+            //}
+            CheckColumnScore();
+            CheckColorScore();
+            CheckEndOfGame();
         }
 
-        private void SetStars()
-        {
-            StarList = Board.GetStarList();
-
-            foreach (Square square in StarList)
-            {
-                square.Image = Image.FromFile(
-                        "C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\star.png");
-            }
-        }
-
-        private void SetColors()
-        {
-            List<string> greens = new List<string>()
-            {
-                "0,0", "0,1", "0,2", "0,7",
-                "1,1", "1,3", "1,13", "1,14",
-                "2,1", "2,3", "2,4", "2,5", "2,6", "2,13", "2,14",
-                "3,3", "3,8", "3,9",
-                "6,10", "6,11", "6,12"
-            };
-            foreach (string green in greens)
-            {
-                string[] coordinates = green.Split(',');
-                squares[int.Parse(coordinates[0]), int.Parse(coordinates[1])].BackColor = Color.Lime;
-            }
-
-            List<string> blues = new List<string>()
-            {
-                "0,8", "0,9", "0,10",
-                "1,9", "1,10",
-                "2,0",
-                "3,0", "3,6", "3,7","3,14",
-                "4,6", "4,7",
-                "5,1", "5,2", "5,11", "5,12", "5,13",
-                "6,2", "6,3", "6,4", "6,5"
-            };
-            foreach (string blue in blues)
-            {
-                string[] coordinates = blue.Split(',');
-                squares[int.Parse(coordinates[0]), int.Parse(coordinates[1])].BackColor = Color.DodgerBlue;
-            }
-
-            List<string> oranges = new List<string>()
-            {
-                "0,11",
-                "1,0", "1,6", "1,7", "1,11", "1,12",
-                "2,12",
-                "3,4", "3,5", "3,12",
-                "4,1", "4,2", "4,3", "4,4", "4,8", "4,9", "4,10",
-                "5,9", "5,14",
-                "6,13", "6,14"
-            };
-            foreach (string orange in oranges)
-            {
-                string[] coordinates = orange.Split(',');
-                squares[int.Parse(coordinates[0]), int.Parse(coordinates[1])].BackColor = Color.Orange;
-            }
-
-            List<string> pinks = new List<string>()
-            {
-                "1,8",
-                "2,2", "2,7", "2,8", "2,9",
-                "3,1", "3,2", "3,13",
-                "4,0", "4,5", "4,11", "4,12", "4,13", "4,14",
-                "5,0", "5,3", "5,4", "5,5", "5,6", "5,10",
-                "6,6"
-            };
-            foreach (string pink in pinks)
-            {
-                string[] coordinates = pink.Split(',');
-                squares[int.Parse(coordinates[0]), int.Parse(coordinates[1])].BackColor = Color.HotPink;
-            }
-
-            List<string> yellows = new List<string>()
-            {
-                "0,3", "0,4", "0,5", "0,6", "0,12", "0,13", "0,14",
-                "1,2", "1,4", "1,5",
-                "2,10", "2,11",
-                "3,10", "3,11",
-                "5,7", "5,8",
-                "6,0", "6,1", "6,7", "6,8", "6,9"
-            };
-            foreach (string yellow in yellows)
-            {
-                string[] coordinates = yellow.Split(',');
-                squares[int.Parse(coordinates[0]), int.Parse(coordinates[1])].BackColor = Color.Yellow;
-            }
-        }
         private void CheckColumnScore()
         {
             
@@ -300,16 +237,14 @@ namespace Encore
             turnsLeft--;
             lblTurnsLeft.Text = turnsLeft.ToString();
 
-            foreach (Square square in squares)
-            {
-                square.CanClick = false;
-                square.BorderStyle = BorderStyle.FixedSingle;
-            }
-
             pboNumberDie1.BorderStyle = BorderStyle.None;
+            pboNumberDie1.BackColor = Color.Empty;
             pboNumberDie2.BorderStyle = BorderStyle.None;
+            pboNumberDie2.BackColor = Color.Empty;
             pboColorDie1.BorderStyle = BorderStyle.None;
+            pboColorDie1.BackColor = Color.Empty;
             pboColorDie2.BorderStyle = BorderStyle.None;
+            pboColorDie2.BackColor = Color.Empty;
 
             dice.RollDice();
             pboColorDie1.Image = dice.DiceList["color1"].getImage();
@@ -317,13 +252,9 @@ namespace Encore
             pboNumberDie1.Image = dice.DiceList["number1"].getImage();
             pboNumberDie2.Image = dice.DiceList["number2"].getImage();
 
-
-
-
-
-            foreach (Square square in CanClickList)
+            foreach (PictureBox box in Boxes)
             {
-                square.BorderStyle = BorderStyle.Fixed3D;
+                box.Enabled = false;
             }
         }
 
@@ -406,13 +337,58 @@ namespace Encore
 
         private void ShowAvailableSquares(DieNumber numberDieSelected, DieColor colorDieSelected)
         {
-            foreach (Square square in squares)
+
+            string dieColor = colorDieSelected.GetColor().ToString().Substring(0, 1);
+            int dieNumber = numberDieSelected.getNumberFace();
+
+            if (dieColor == "b" && dieNumber == -1)
             {
-                if (square.BackColor == colorDieSelected.GetColor())
+                // any color/number combination
+                foreach (PictureBox box in Boxes)
                 {
-                    square.BorderStyle = BorderStyle.Fixed3D;
-                    square.CanClick = true;
+                    if (true)
+                    box.Enabled = true;
                 }
+
+            } else if (dieColor == "b")
+            {
+                // any color possible with specific number
+
+
+            } else if (dieNumber == -1)
+            {
+                // any number possible with specific color
+
+
+            } else
+            {
+                // specific number and color only
+                foreach (PictureBox box in Boxes)
+                {
+                    box.BorderStyle = BorderStyle.None;
+                    box.Enabled = false;
+
+                    if (box.Tag.ToString().Substring(0, 1).Equals(dieColor))
+                    {
+                        if (Board.CheckIfAdjacent(dieColor, dieNumber, box.Name))
+                        {
+                            box.BorderStyle = BorderStyle.Fixed3D;
+                            box.Enabled = true;
+                        }
+                    }
+                    //if (box.Tag.ToString().Equals(dieColor + dieNumber) && 
+                    //    Board.g
+                    //    //Board.getGroupSize(box.Tag.ToString()) <= dieNumber)
+                    //{
+
+                    //}
+                }
+
+            }
+
+            foreach (PictureBox box in Boxes)
+            {
+                box.Enabled = true;
             }
         }
     }

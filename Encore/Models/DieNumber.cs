@@ -1,59 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Encore
 {
-    enum NumberFace
-    {
-        One = 1,
-        Two = 2,
-        Three = 3,
-        Four = 4,
-        Five = 5,
-        Wild = 6
-    }
     public class DieNumber : Die
     {
-        private NumberFace numberFace;
+        private int numberFace;
 
         public DieNumber()
         {
             sides = 6;
-            dieImage = new System.Drawing.Bitmap(
-                "C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black1.png");
+            string filename = "..\\..\\Images\\black1.png";
+            string path = Path.Combine(Environment.CurrentDirectory, filename);
+            dieImage = new Bitmap(path);
         }
 
         public override void Roll(int randomNumber)
         {
+            string filename;
+            string path; 
+            
             switch (randomNumber)
             {
                 case 1:
-                    numberFace = NumberFace.One;
-                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black1.png");
+                    numberFace = 1;
+                    filename = "..\\..\\Images\\black1.png";
+                    path = Path.Combine(Environment.CurrentDirectory, filename);
+                    dieImage = new Bitmap(path);
                     break;
                 case 2:
-                    numberFace = NumberFace.Two;
-                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black2.png");
+                    numberFace = 2;
+                    filename = "..\\..\\Images\\black2.png";
+                    path = Path.Combine(Environment.CurrentDirectory, filename);
+                    dieImage = new Bitmap(path);
                     break;
                 case 3:
-                    numberFace = NumberFace.Three;
-                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black3.png");
+                    numberFace = 3;
+                    filename = "..\\..\\Images\\black3.png";
+                    path = Path.Combine(Environment.CurrentDirectory, filename);
+                    dieImage = new Bitmap(path);
                     break;
                 case 4:
-                    numberFace = NumberFace.Four;
-                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black4.png");
+                    numberFace = 4;
+                    filename = "..\\..\\Images\\black4.png";
+                    path = Path.Combine(Environment.CurrentDirectory, filename);
+                    dieImage = new Bitmap(path);
                     break;
                 case 5:
-                    numberFace = NumberFace.Five;
-                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black5.png");
+                    numberFace = 5;
+                    filename = "..\\..\\Images\\black5.png";
+                    path = Path.Combine(Environment.CurrentDirectory, filename);
+                    dieImage = new Bitmap(path);
                     break;
                 case 6:
-                    numberFace = NumberFace.Wild;
-                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\black6.png");
+                    numberFace = -1;
+                    filename = "..\\..\\Images\\black6.png";
+                    path = Path.Combine(Environment.CurrentDirectory, filename);
+                    dieImage = new Bitmap(path);
                     break;
             }
         }
@@ -66,6 +74,11 @@ namespace Encore
         public override void setImage(Bitmap newImage)
         {
             dieImage = newImage;
+        }
+
+        public int getNumberFace()
+        {
+            return numberFace;
         }
     }
 }

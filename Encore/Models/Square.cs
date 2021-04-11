@@ -9,22 +9,45 @@ using System.Windows.Forms;
 namespace Encore
 {
     
-    public class Square:PictureBox
+    public class Square//:PictureBox
     {
         public bool Star { get; set; }
-        public bool CanClick { get; set; }
         public bool Clicked { get; set; }
         public int GroupSize { get; set; }
-        public int GroupId { get; set; }
+        public string Group { get; set; }
         public Color Color { get; set; }
+        public int XCoordinate { get; set; }
+        public int YCoordinate { get; set; }
 
+        private string squareName;
+        private bool canClick;
 
         //private bool star;
         //private bool canClick;
 
         public Square()
         {
-            this.SetStyle(ControlStyles.Selectable, true);
+            //this.SetStyle(ControlStyles.Selectable, true);
+        }
+
+        public void SetSquareName()
+        {
+            squareName = XCoordinate.ToString() + "," + YCoordinate.ToString();
+        }
+
+        public string GetSquareName()
+        {
+            return squareName;
+        }
+
+        public bool GetCanClick()
+        {
+            return canClick;
+        }
+
+        public void SetCanClickTrue()
+        {
+            canClick = true;
         }
     }
 }

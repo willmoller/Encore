@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,37 +26,53 @@ namespace Encore
         public DieColor()
         {
             sides = 6;
-            dieImage = new System.Drawing.Bitmap(
-                "C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\bluex.png");
+            string filename = "..\\..\\Images\\bluex.png";
+            string path = Path.Combine(Environment.CurrentDirectory, filename);
+            dieImage = new Bitmap(path);
         }
 
         public override void Roll(int randomNumber)
         {
+            string filename;
+            string path;
+            
             switch(randomNumber)
             {
                 case 1:
                     colorFace = ColorFace.Blue;
-                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\bluex.png");
+                    filename = "..\\..\\Images\\bluex.png";
+                    path = Path.Combine(Environment.CurrentDirectory, filename);
+                    dieImage = new Bitmap(path);
                     break;
                 case 2:
                     colorFace = ColorFace.Green;
-                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\greenx.png");
+                    filename = "..\\..\\Images\\greenx.png";
+                    path = Path.Combine(Environment.CurrentDirectory, filename);
+                    dieImage = new Bitmap(path);
                     break;
                 case 3:
                     colorFace = ColorFace.Orange;
-                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\orangex.png");
+                    filename = "..\\..\\Images\\orangex.png";
+                    path = Path.Combine(Environment.CurrentDirectory, filename);
+                    dieImage = new Bitmap(path);
                     break;
                 case 4:
                     colorFace = ColorFace.Pink;
-                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\pinkx.png");
+                    filename = "..\\..\\Images\\pinkx.png";
+                    path = Path.Combine(Environment.CurrentDirectory, filename);
+                    dieImage = new Bitmap(path);
                     break;
                 case 5:
                     colorFace = ColorFace.Yellow;
-                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\yellowx.png");
+                    filename = "..\\..\\Images\\yellowx.png";
+                    path = Path.Combine(Environment.CurrentDirectory, filename);
+                    dieImage = new Bitmap(path);
                     break;
                 case 6:
                     colorFace = ColorFace.Wild;
-                    dieImage = new Bitmap("C:\\Users\\Will\\Desktop\\Programming\\SCC\\INFO2644 - Capstone\\Encore_C#\\Encore\\Images\\x.png");
+                    filename = "..\\..\\Images\\x.png";
+                    path = Path.Combine(Environment.CurrentDirectory, filename);
+                    dieImage = new Bitmap(path);
                     break;
             }
         }
