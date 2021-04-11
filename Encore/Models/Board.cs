@@ -73,7 +73,7 @@ namespace Encore
         public bool CheckIfClickable(string color, int number, string name)
         {
             bool correctGroupSize = false;
-            if (AllSquares[name].GroupSize <= number)
+            if (number <= AllSquares[name].GroupSize)
             {
                 correctGroupSize = true;
             }
@@ -138,6 +138,11 @@ namespace Encore
             //}
         }
 
+        public bool CheckIfClicked(string name)
+        {
+            return AllSquares[name].Clicked;
+        }
+
         public bool CheckIfStar(string color, PictureBox box)
         {
             return false;
@@ -197,6 +202,61 @@ namespace Encore
         internal void SetClickedTrue(string name)
         {
             AllSquares[name].SetClickedTrue();
+        }
+
+        public List<string> GetGroup(PictureBox box)
+        {
+            List<string> group = new List<string>();
+            string groupId = AllSquares[box.Name].Group;
+            switch (box.Tag.ToString().Substring(0, 1))
+            {
+                case "b":
+                    foreach (Square s in BlueSquares)
+                    {
+                        if (s.Group == groupId)
+                        {
+                            group.Add(s.GetSquareName());
+                        }
+                    }
+                    break;
+                case "g":
+                    foreach (Square s in GreenSquares)
+                    {
+                        if (s.Group == groupId)
+                        {
+                            group.Add(s.GetSquareName());
+                        }
+                    }
+                    break;
+                case "o":
+                    foreach (Square s in OrangeSquares)
+                    {
+                        if (s.Group == groupId)
+                        {
+                            group.Add(s.GetSquareName());
+                        }
+                    }
+                    break;
+                case "p":
+                    foreach (Square s in PinkSquares)
+                    {
+                        if (s.Group == groupId)
+                        {
+                            group.Add(s.GetSquareName());
+                        }
+                    }
+                    break;
+                case "y":
+                    foreach (Square s in YellowSquares)
+                    {
+                        if (s.Group == groupId)
+                        {
+                            group.Add(s.GetSquareName());
+                        }
+                    }
+                    break;
+            }
+            return group;
         }
     }
 }

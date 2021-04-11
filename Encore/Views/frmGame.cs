@@ -26,7 +26,8 @@ namespace Encore
         private DieColor colorDieSelected;
         private bool numberSelected = false;
         private bool colorSelected = false;
-        private int turnsLeft;
+        private int turnsLeft, clicksLeft;
+        private List<string> boxGroupNames;
 
         public frmGame()
         {
@@ -209,7 +210,61 @@ namespace Encore
             b.MakeTransparent(Color.White);
             clickedBox.Image = b;
             Board.SetClickedBox(clickedBox.BackColor.ToString(), clickedBox);
+            btnRoll.Enabled = false;
+            clickedBox.Enabled = false;
+            clickedBox.BorderStyle = BorderStyle.FixedSingle;
+            clicksLeft--;
+
+            // use clickedBox's name to get all boxes with same Group into a List<>.
+            // determine boxes in the List<> that are adjacent to it to make them "CanClick" and Enabled
+            boxGroupNames = Board.GetGroup(clickedBox);
+            List<PictureBox> boxGroup = new List<PictureBox>();
+            foreach (PictureBox pb in Boxes)
+            {
+                if (boxGroupNames.Contains(pb.Name))
+                {
+                    boxGroup.Add(pb);
+                }
+            }
+            string[] coordinateStrings = clickedBox.Name.Split(',');
+            int xCoordinate = Int32.Parse(coordinateStrings[0]);
+            int yCoordinate = Int32.Parse(coordinateStrings[1]);
+            int xPlus1 = xCoordinate + 1;
+            int xMinus1 = xCoordinate - 1;
+            int yPlus1 = yCoordinate + 1;
+            int yMinus1 = yCoordinate - 1;
+            string newCoordinate1 = xPlus1.ToString() + "," + yCoordinate.ToString();
+            string newCoordinate2 = xMinus1.ToString() + "," + yCoordinate.ToString();
+            string newCoordinate3 = xCoordinate.ToString() + "," + yPlus1.ToString();
+            string newCoordinate4 = xCoordinate.ToString() + "," + yMinus1.ToString();
+
+            if (clicksLeft > 0)
+            {
+                foreach (PictureBox pbo in boxGroup)
+                {
+                    if (!Board.CheckIfClicked(pbo.Name) && 
+                        (pbo.Name.Equals(newCoordinate1) ||
+                        pbo.Name.Equals(newCoordinate2) ||
+                        pbo.Name.Equals(newCoordinate3) ||
+                        pbo.Name.Equals(newCoordinate4)))
+                    {
+                        Board.SetCanClickTrue(pbo.Name);
+                        pbo.Enabled = true;
+                        pbo.BorderStyle = BorderStyle.Fixed3D;
+                    }
+                }
+            } else
+            {
+                btnRoll.Enabled = true;
+                foreach (PictureBox pb in Boxes)
+                {
+                    pb.Enabled = false;
+                    pb.BorderStyle = BorderStyle.FixedSingle;
+                }
+            }
+
             
+
 
             //clickedBox.Clicked = true;
             //if (StarList.Contains(clickedBox))
@@ -353,6 +408,7 @@ namespace Encore
 
             string dieColor = colorDieSelected.GetColor().Substring(0, 1);
             int dieNumber = numberDieSelected.getNumberFace();
+            clicksLeft = dieNumber;
 
             if (dieColor == "w" && dieNumber == -1)
             {
