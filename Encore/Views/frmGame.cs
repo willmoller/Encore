@@ -14,7 +14,7 @@ namespace Encore
     public partial class frmGame : Form
     {
         public Board Board { get; set; }
-        private int starsPoints, columnPoints, colorPoints, wildPoints, totalPoints;
+        private int starPoints, columnPoints, colorPoints, wildPoints, totalPoints;
         private List<PictureBox> Boxes;
         private Dice dice;
         private List<String> diceKeys;
@@ -33,7 +33,7 @@ namespace Encore
 
         private void frmGame_Load(object sender, EventArgs e)
         {
-            starsPoints = -30;
+            starPoints = -30;
             columnPoints = 0;
             colorPoints = 0;
             wildPoints = 8;
@@ -292,22 +292,84 @@ namespace Encore
             //    clickedBox.Star = false;
             //    StarList.Remove(clickedBox);
             //}
+
+            // score column if all boxes in column are filled in
             if (Board.ColumnFilled(clickedBox.Name))
             {
                 columnPoints += Int32.Parse(columnScoring[Board.GetYCoordinate(clickedBox.Name)].Name);
                 txtColumnPoints.Text = columnPoints.ToString();
                 columnScoring[Board.GetYCoordinate(clickedBox.Name)].BackColor = Color.Green;
             }
-            CheckColorScore();
-            CheckEndOfGame();
+
+            // score color bonus if all squares of color are filled in
+            if (Board.ColorFilled(clickedBox.Tag.ToString()))
+            {
+                colorPoints += 5;
+                txtColorPoints.Text = colorPoints.ToString();
+                string filename2 = "..\\..\\Images\\number5.png";
+                string path2 = Path.Combine(Environment.CurrentDirectory, filename2);
+                Bitmap five = new Bitmap(path2);
+                five.MakeTransparent(Color.White);
+                switch (clickedBox.Tag.ToString().Substring(0, 1))
+                {
+                    case "b":
+                        pboBonusBlue.SizeMode = PictureBoxSizeMode.StretchImage;
+                        pboBonusBlue.Image = five;
+                        break;
+                    case "g":
+                        pboBonusGreen.SizeMode = PictureBoxSizeMode.StretchImage;
+                        pboBonusGreen.Image = five;
+                        break;
+                    case "o":
+                        pboBonusOrange.SizeMode = PictureBoxSizeMode.StretchImage;
+                        pboBonusOrange.Image = five;
+                        break;
+                    case "p":
+                        pboBonusPink.SizeMode = PictureBoxSizeMode.StretchImage;
+                        pboBonusPink.Image = five;
+                        break;
+                    case "y":
+                        pboBonusYellow.SizeMode = PictureBoxSizeMode.StretchImage;
+                        pboBonusYellow.Image = five;
+                        break;
+                }
+            }
+
+            if (Board.ContainsStar(clickedBox.Name))
+            {
+                starPoints += 2;
+            }
+
+            if (clicksLeft == 0)
+            {
+                if (numberDieSelected.getNumberFace() == -1)
+                {
+                    wildPoints--;
+                    MarkWild();
+                }
+
+                if (colorDieSelected.getColor() == "wild")
+                {
+                    wildPoints--;
+                    MarkWild();
+                }
+
+                if (turnsLeft == 0)
+                {
+                    btnRoll.Enabled = false;
+                    btnRoll.BackColor = Color.DarkGray;
+                    totalPoints += colorPoints;
+                    totalPoints += columnPoints;
+                    totalPoints += starPoints;
+                    totalPoints += wildPoints;
+                    txtUnusedWilds.Text = wildPoints.ToString();
+                    txtStarPoints.Text = starPoints.ToString();
+                    txtTotalScore.Text = totalPoints.ToString();
+                }
+            }
         }
 
-        private void CheckColorScore()
-        {
-            
-        }
-
-        private void CheckEndOfGame()
+        private void MarkWild()
         {
             
         }
@@ -344,10 +406,43 @@ namespace Encore
             {
                 box.Enabled = false;
             }
+
+            if (wildPoints == 0)
+            {
+                if (dice.DiceList["color1"].getValue() == -1)
+                {
+                    pboColorDie1.Enabled = false;
+                    pboColorDie1.BackColor = Color.Red;
+                }
+
+                if (dice.DiceList["color2"].getValue() == -1)
+                {
+                    pboColorDie2.Enabled = false;
+                    pboColorDie2.BackColor = Color.Red;
+                }
+
+                if (dice.DiceList["number1"].getValue() == -1)
+                {
+                    pboNumberDie1.Enabled = false;
+                    pboNumberDie1.BackColor = Color.Red;
+                }
+
+                if (dice.DiceList["number2"].getValue() == -1)
+                {
+                    pboNumberDie2.Enabled = false;
+                    pboNumberDie2.BackColor = Color.Red;
+                }
+            }
         }
 
         private void pboNumberDie1_Click(object sender, EventArgs e)
         {
+            foreach(PictureBox box in Boxes)
+            {
+                box.Enabled = false;
+                box.BorderStyle = BorderStyle.FixedSingle;
+            }
+
             numberDieSelected = (DieNumber)dice.DiceList["number1"];
             pboNumberDie1.BackColor = Color.Red;
             pboNumberDie2.BackColor = Color.Transparent;
@@ -368,6 +463,12 @@ namespace Encore
 
         private void pboNumberDie2_Click(object sender, EventArgs e)
         {
+            foreach (PictureBox box in Boxes)
+            {
+                box.Enabled = false;
+                box.BorderStyle = BorderStyle.FixedSingle;
+            }
+
             numberDieSelected = (DieNumber)dice.DiceList["number2"];
             pboNumberDie2.BackColor = Color.Red;
             pboNumberDie1.BackColor = Color.Transparent;
@@ -387,6 +488,12 @@ namespace Encore
 
         private void pboColorDie1_Click(object sender, EventArgs e)
         {
+            foreach (PictureBox box in Boxes)
+            {
+                box.Enabled = false;
+                box.BorderStyle = BorderStyle.FixedSingle;
+            }
+
             colorDieSelected = (DieColor)dice.DiceList["color1"];
             pboColorDie1.BackColor = Color.Red;
             pboColorDie2.BackColor = Color.Transparent;
@@ -406,6 +513,12 @@ namespace Encore
 
         private void pboColorDie2_Click(object sender, EventArgs e)
         {
+            foreach (PictureBox box in Boxes)
+            {
+                box.Enabled = false;
+                box.BorderStyle = BorderStyle.FixedSingle;
+            }
+
             colorDieSelected = (DieColor)dice.DiceList["color2"];
             pboColorDie2.BackColor = Color.Red;
             pboColorDie1.BackColor = Color.Transparent;
@@ -426,7 +539,7 @@ namespace Encore
         private void ShowAvailableSquares(DieNumber numberDieSelected, DieColor colorDieSelected)
         {
 
-            string dieColor = colorDieSelected.GetColor().Substring(0, 1);
+            string dieColor = colorDieSelected.getColor().Substring(0, 1);
             int dieNumber = numberDieSelected.getNumberFace();
             clicksLeft = dieNumber;
 

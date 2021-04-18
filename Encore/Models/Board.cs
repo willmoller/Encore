@@ -139,9 +139,9 @@ namespace Encore
             return AllSquares[name].Clicked;
         }
 
-        public bool CheckIfStar(string color, PictureBox box)
+        public bool ContainsStar(string name)
         {
-            return false;
+            return AllSquares[name].Star;
         }
 
         public void SetClickedBox(string color, PictureBox box)
@@ -271,6 +271,59 @@ namespace Encore
         internal int GetYCoordinate(string name)
         {
             return AllSquares[name].YCoordinate;
+        }
+
+        internal bool ColorFilled(string tag)
+        {
+            switch(tag.Substring(0, 1))
+            {
+                case "b":
+                    foreach (Square square in BlueSquares)
+                    {
+                        if (!square.Clicked)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                case "g":
+                    foreach (Square square in GreenSquares)
+                    {
+                        if (!square.Clicked)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                case "o":
+                    foreach (Square square in OrangeSquares)
+                    {
+                        if (!square.Clicked)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                case "p":
+                    foreach (Square square in PinkSquares)
+                    {
+                        if (!square.Clicked)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                case "y":
+                    foreach (Square square in YellowSquares)
+                    {
+                        if (!square.Clicked)
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+            }
+            return false;
         }
     }
 }

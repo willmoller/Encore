@@ -11,11 +11,13 @@ namespace Encore
     {
         protected int sides;
         protected Bitmap dieImage;
+        protected int value;
 
         public abstract void Roll(int randomNumber);
 
         public abstract Bitmap getImage();
 
         public abstract void setImage(Bitmap newImage);
+        public abstract int getValue();
     }
 }
