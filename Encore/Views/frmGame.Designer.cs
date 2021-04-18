@@ -52,6 +52,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblTurnsLeft = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pboWild1 = new System.Windows.Forms.PictureBox();
+            this.pboWild2 = new System.Windows.Forms.PictureBox();
+            this.pboWild3 = new System.Windows.Forms.PictureBox();
+            this.pboWild4 = new System.Windows.Forms.PictureBox();
+            this.pboWild5 = new System.Windows.Forms.PictureBox();
+            this.pboWild6 = new System.Windows.Forms.PictureBox();
+            this.pboWild7 = new System.Windows.Forms.PictureBox();
+            this.pboWild8 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pboNumberDie1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboNumberDie2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboColorDie1)).BeginInit();
@@ -62,6 +71,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.pboBonusBlue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboBonusPink)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboBonusOrange)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild8)).BeginInit();
             this.SuspendLayout();
             // 
             // btnRoll
@@ -169,6 +187,7 @@
             // 
             // txtColorPoints
             // 
+            this.txtColorPoints.Enabled = false;
             this.txtColorPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtColorPoints.Location = new System.Drawing.Point(1449, 334);
             this.txtColorPoints.Name = "txtColorPoints";
@@ -177,6 +196,7 @@
             // 
             // txtColumnPoints
             // 
+            this.txtColumnPoints.Enabled = false;
             this.txtColumnPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtColumnPoints.Location = new System.Drawing.Point(1449, 389);
             this.txtColumnPoints.Name = "txtColumnPoints";
@@ -185,6 +205,7 @@
             // 
             // txtUnusedWilds
             // 
+            this.txtUnusedWilds.Enabled = false;
             this.txtUnusedWilds.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUnusedWilds.Location = new System.Drawing.Point(1449, 444);
             this.txtUnusedWilds.Name = "txtUnusedWilds";
@@ -193,6 +214,7 @@
             // 
             // txtStarPoints
             // 
+            this.txtStarPoints.Enabled = false;
             this.txtStarPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtStarPoints.Location = new System.Drawing.Point(1449, 499);
             this.txtStarPoints.Name = "txtStarPoints";
@@ -201,6 +223,7 @@
             // 
             // txtTotalScore
             // 
+            this.txtTotalScore.Enabled = false;
             this.txtTotalScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalScore.Location = new System.Drawing.Point(1449, 577);
             this.txtTotalScore.Name = "txtTotalScore";
@@ -285,12 +308,103 @@
             this.lblTurnsLeft.Text = "30";
             this.lblTurnsLeft.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(353, 666);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(190, 75);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 27;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pboWild1
+            // 
+            this.pboWild1.Location = new System.Drawing.Point(549, 670);
+            this.pboWild1.Name = "pboWild1";
+            this.pboWild1.Size = new System.Drawing.Size(65, 65);
+            this.pboWild1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pboWild1.TabIndex = 28;
+            this.pboWild1.TabStop = false;
+            // 
+            // pboWild2
+            // 
+            this.pboWild2.Location = new System.Drawing.Point(614, 670);
+            this.pboWild2.Name = "pboWild2";
+            this.pboWild2.Size = new System.Drawing.Size(65, 65);
+            this.pboWild2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pboWild2.TabIndex = 29;
+            this.pboWild2.TabStop = false;
+            // 
+            // pboWild3
+            // 
+            this.pboWild3.Location = new System.Drawing.Point(679, 670);
+            this.pboWild3.Name = "pboWild3";
+            this.pboWild3.Size = new System.Drawing.Size(65, 65);
+            this.pboWild3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pboWild3.TabIndex = 30;
+            this.pboWild3.TabStop = false;
+            // 
+            // pboWild4
+            // 
+            this.pboWild4.Location = new System.Drawing.Point(744, 670);
+            this.pboWild4.Name = "pboWild4";
+            this.pboWild4.Size = new System.Drawing.Size(65, 65);
+            this.pboWild4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pboWild4.TabIndex = 31;
+            this.pboWild4.TabStop = false;
+            // 
+            // pboWild5
+            // 
+            this.pboWild5.Location = new System.Drawing.Point(809, 670);
+            this.pboWild5.Name = "pboWild5";
+            this.pboWild5.Size = new System.Drawing.Size(65, 65);
+            this.pboWild5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pboWild5.TabIndex = 32;
+            this.pboWild5.TabStop = false;
+            // 
+            // pboWild6
+            // 
+            this.pboWild6.Location = new System.Drawing.Point(874, 670);
+            this.pboWild6.Name = "pboWild6";
+            this.pboWild6.Size = new System.Drawing.Size(65, 65);
+            this.pboWild6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pboWild6.TabIndex = 33;
+            this.pboWild6.TabStop = false;
+            // 
+            // pboWild7
+            // 
+            this.pboWild7.Location = new System.Drawing.Point(939, 670);
+            this.pboWild7.Name = "pboWild7";
+            this.pboWild7.Size = new System.Drawing.Size(65, 65);
+            this.pboWild7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pboWild7.TabIndex = 34;
+            this.pboWild7.TabStop = false;
+            // 
+            // pboWild8
+            // 
+            this.pboWild8.Location = new System.Drawing.Point(1004, 670);
+            this.pboWild8.Name = "pboWild8";
+            this.pboWild8.Size = new System.Drawing.Size(65, 65);
+            this.pboWild8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pboWild8.TabIndex = 35;
+            this.pboWild8.TabStop = false;
+            // 
             // frmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(1632, 703);
+            this.ClientSize = new System.Drawing.Size(1632, 753);
+            this.Controls.Add(this.pboWild8);
+            this.Controls.Add(this.pboWild7);
+            this.Controls.Add(this.pboWild6);
+            this.Controls.Add(this.pboWild5);
+            this.Controls.Add(this.pboWild4);
+            this.Controls.Add(this.pboWild3);
+            this.Controls.Add(this.pboWild2);
+            this.Controls.Add(this.pboWild1);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblTurnsLeft);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label4);
@@ -328,6 +442,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.pboBonusBlue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboBonusPink)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboBonusOrange)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pboWild8)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -358,5 +481,14 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblTurnsLeft;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pboWild1;
+        private System.Windows.Forms.PictureBox pboWild2;
+        private System.Windows.Forms.PictureBox pboWild3;
+        private System.Windows.Forms.PictureBox pboWild4;
+        private System.Windows.Forms.PictureBox pboWild5;
+        private System.Windows.Forms.PictureBox pboWild6;
+        private System.Windows.Forms.PictureBox pboWild7;
+        private System.Windows.Forms.PictureBox pboWild8;
     }
 }

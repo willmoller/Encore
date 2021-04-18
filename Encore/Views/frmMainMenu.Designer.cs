@@ -28,26 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblEncore = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainMenu));
             this.btnPlayGame = new System.Windows.Forms.Button();
             this.btnRules = new System.Windows.Forms.Button();
             this.btnHighScores = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cboBoardSelection = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lblEncore
-            // 
-            this.lblEncore.AutoSize = true;
-            this.lblEncore.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEncore.Location = new System.Drawing.Point(34, 52);
-            this.lblEncore.Name = "lblEncore";
-            this.lblEncore.Size = new System.Drawing.Size(159, 46);
-            this.lblEncore.TabIndex = 0;
-            this.lblEncore.Text = "Encore!";
             // 
             // btnPlayGame
             // 
             this.btnPlayGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPlayGame.Location = new System.Drawing.Point(42, 147);
+            this.btnPlayGame.Location = new System.Drawing.Point(532, 271);
             this.btnPlayGame.Name = "btnPlayGame";
             this.btnPlayGame.Size = new System.Drawing.Size(120, 53);
             this.btnPlayGame.TabIndex = 1;
@@ -58,7 +51,7 @@
             // btnRules
             // 
             this.btnRules.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRules.Location = new System.Drawing.Point(42, 239);
+            this.btnRules.Location = new System.Drawing.Point(646, 385);
             this.btnRules.Name = "btnRules";
             this.btnRules.Size = new System.Drawing.Size(142, 53);
             this.btnRules.TabIndex = 2;
@@ -69,37 +62,59 @@
             // btnHighScores
             // 
             this.btnHighScores.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHighScores.Location = new System.Drawing.Point(42, 340);
+            this.btnHighScores.Location = new System.Drawing.Point(12, 385);
             this.btnHighScores.Name = "btnHighScores";
-            this.btnHighScores.Size = new System.Drawing.Size(221, 53);
+            this.btnHighScores.Size = new System.Drawing.Size(245, 53);
             this.btnHighScores.TabIndex = 3;
-            this.btnHighScores.Text = "High Scores";
+            this.btnHighScores.Text = "My High Scores";
             this.btnHighScores.UseVisualStyleBackColor = true;
             this.btnHighScores.Click += new System.EventHandler(this.btnHighScores_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(85, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(628, 206);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
+            // cboBoardSelection
+            // 
+            this.cboBoardSelection.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboBoardSelection.FormattingEnabled = true;
+            this.cboBoardSelection.Location = new System.Drawing.Point(210, 276);
+            this.cboBoardSelection.Name = "cboBoardSelection";
+            this.cboBoardSelection.Size = new System.Drawing.Size(286, 44);
+            this.cboBoardSelection.TabIndex = 5;
             // 
             // frmMainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cboBoardSelection);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnHighScores);
             this.Controls.Add(this.btnRules);
             this.Controls.Add(this.btnPlayGame);
-            this.Controls.Add(this.lblEncore);
             this.Name = "frmMainMenu";
             this.ShowIcon = false;
             this.Text = "Main Menu";
+            this.Load += new System.EventHandler(this.frmMainMenu_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblEncore;
         private System.Windows.Forms.Button btnPlayGame;
         private System.Windows.Forms.Button btnRules;
         private System.Windows.Forms.Button btnHighScores;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ComboBox cboBoardSelection;
     }
 }
 

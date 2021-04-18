@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -29,7 +30,22 @@ namespace Encore
                 {
                     Board board = new Board();
                     board.BoardID = boardId;
-                    board.BackgroundColor = boardReader["BackgroundColor"].ToString();
+                    string color = boardReader["BackgroundColor"].ToString();
+                    switch (color)
+                    {
+                        case "b":
+                            board.BackgroundColor = Color.Black;
+                            break;
+                        case "o":
+                            board.BackgroundColor = Color.DarkOrange;
+                            break;
+                        case "y":
+                            board.BackgroundColor = Color.LightGoldenrodYellow;
+                            break;
+                        case "p":
+                            board.BackgroundColor = Color.Purple;
+                            break;
+                    }
                     string[] blues = boardReader["Blues"].ToString().Split('|');
                     string[] greens = boardReader["Greens"].ToString().Split('|');
                     string[] oranges = boardReader["Oranges"].ToString().Split('|');

@@ -17,12 +17,35 @@ namespace Encore
             InitializeComponent();
         }
 
+        private void frmMainMenu_Load(object sender, EventArgs e)
+        {
+            string[] boards =
+            {
+                "Select a board...",
+                "Black", "Orange", "Yellow", "Purple"
+            };
+
+            foreach (String s in boards)
+            {
+                cboBoardSelection.Items.Add(s);
+            }
+            cboBoardSelection.SelectedIndex = 0;
+        }
+
         private void btnPlayGame_Click(object sender, EventArgs e)
         {
-            frmGame gameForm = new frmGame();
-            this.Hide();
-            gameForm.ShowDialog();
-            this.Close();
+            if (cboBoardSelection.SelectedIndex == 0)
+            {
+                MessageBox.Show("Please select a Board to play.", "Missing Board");
+            } 
+            else
+            {
+                frmGame gameForm = new frmGame(cboBoardSelection.SelectedIndex);
+                this.Hide();
+                gameForm.ShowDialog();
+                this.Close();
+            }
+            
         }
 
         private void btnRules_Click(object sender, EventArgs e)

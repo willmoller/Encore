@@ -11,11 +11,24 @@ using System.Windows.Forms;
 
 namespace Encore
 {
+    // don't allow two wilds to be selected if there's only 1 wild selection left to pick.
+    // allow game to end if last turn has no valid moves.
+    // add Buttons:
+        // Return to Home
+        // Cancel Game
+        // Play Again
+    // add legal moves validation? or, allow create visual to indicate to user to skip this turn (in case of no valid moves).
+    // put up score message based on final score.
+    // save score to database.
+    // create login
+    // create admin view to see stats by user or board
+    // create user homepage - select board to play and view stats
+
     public partial class frmGame : Form
     {
         public Board Board { get; set; }
         private int starPoints, columnPoints, colorPoints, wildPoints, totalPoints;
-        private List<PictureBox> Boxes;
+        private List<PictureBox> Boxes, wilds;
         private Dice dice;
         private List<String> diceKeys;
         private PictureBox[] columnScoring = new PictureBox[15];
@@ -23,20 +36,25 @@ namespace Encore
         private DieColor colorDieSelected;
         private bool numberSelected = false;
         private bool colorSelected = false;
-        private int turnsLeft, clicksLeft;
+        private int turnsLeft, clicksLeft, boardID;
         private List<string> boxGroupNames;
 
-        public frmGame()
+        public frmGame(int boardID)
         {
+            this.boardID = boardID;
             InitializeComponent();
         }
 
         private void frmGame_Load(object sender, EventArgs e)
         {
             starPoints = -30;
+            txtStarPoints.Text = starPoints.ToString();
             columnPoints = 0;
+            txtColumnPoints.Text = columnPoints.ToString();
             colorPoints = 0;
+            txtColorPoints.Text = colorPoints.ToString();
             wildPoints = 8;
+            txtUnusedWilds.Text = wildPoints.ToString();
             totalPoints = 0;
             DieColor colorDie1 = new DieColor();
             DieColor colorDie2 = new DieColor();
@@ -64,16 +82,15 @@ namespace Encore
             lblTurnsLeft.Text = turnsLeft.ToString();
 
             Boxes = new List<PictureBox>();
-            Board = BoardDB.GetBoardById(1);
+            Board = BoardDB.GetBoardById(boardID);
             CreatePictureBoxes(Board.BlueSquares, Color.DodgerBlue);
             CreatePictureBoxes(Board.GreenSquares, Color.Lime);
             CreatePictureBoxes(Board.OrangeSquares, Color.Orange);
             CreatePictureBoxes(Board.PinkSquares, Color.HotPink);
             CreatePictureBoxes(Board.YellowSquares, Color.Yellow);
+            BackColor = Board.BackgroundColor;
 
             SetHColumn();
-            //SetColors();
-            //SetStars();
             SetDice();
             SetColumnPoints();
             SetWilds();
@@ -172,7 +189,28 @@ namespace Encore
 
         private void SetWilds()
         {
-            
+            wilds = new List<PictureBox>()
+            {
+                pboWild8,
+                pboWild7,
+                pboWild6,
+                pboWild5,
+                pboWild4,
+                pboWild3,
+                pboWild2,
+                pboWild1
+            };
+
+            foreach (PictureBox p in wilds)
+            {
+                string filename = "..\\..\\Images\\WildUsed.png";
+                string path = Path.Combine(Environment.CurrentDirectory, filename);
+                Bitmap wild = new Bitmap(path);
+                wild.MakeTransparent(Color.White);
+                p.Image = wild;
+                p.SizeMode = PictureBoxSizeMode.StretchImage;
+                p.BackColor = Color.White;
+            }
         }
 
         private void SetScoringBoxes()
@@ -225,6 +263,7 @@ namespace Encore
             clickedBox.Image = b;
             Board.SetClickedBox(clickedBox.BackColor.ToString(), clickedBox);
             btnRoll.Enabled = false;
+            btnRoll.BackColor = Color.DarkGray;
             clickedBox.Enabled = false;
             clickedBox.BorderStyle = BorderStyle.FixedSingle;   
             clicksLeft--;
@@ -270,12 +309,14 @@ namespace Encore
                     {
                         Board.SetCanClickTrue(pbo.Name);
                         pbo.Enabled = true;
+                        btnRoll.BackColor = SystemColors.Control;
                         pbo.BorderStyle = BorderStyle.Fixed3D;
                     }
                 }
             } else
             {
                 btnRoll.Enabled = true;
+                btnRoll.BackColor = SystemColors.Control;
                 foreach (PictureBox pb in Boxes)
                 {
                     pb.Enabled = false;
@@ -306,31 +347,31 @@ namespace Encore
             {
                 colorPoints += 5;
                 txtColorPoints.Text = colorPoints.ToString();
-                string filename2 = "..\\..\\Images\\number5.png";
+                string filename2 = "..\\..\\Images\\x.png";
                 string path2 = Path.Combine(Environment.CurrentDirectory, filename2);
-                Bitmap five = new Bitmap(path2);
-                five.MakeTransparent(Color.White);
+                Bitmap x = new Bitmap(path2);
+                x.MakeTransparent(Color.White);
                 switch (clickedBox.Tag.ToString().Substring(0, 1))
                 {
                     case "b":
                         pboBonusBlue.SizeMode = PictureBoxSizeMode.StretchImage;
-                        pboBonusBlue.Image = five;
+                        pboBonusBlue.Image = x;
                         break;
                     case "g":
                         pboBonusGreen.SizeMode = PictureBoxSizeMode.StretchImage;
-                        pboBonusGreen.Image = five;
+                        pboBonusGreen.Image = x;
                         break;
                     case "o":
                         pboBonusOrange.SizeMode = PictureBoxSizeMode.StretchImage;
-                        pboBonusOrange.Image = five;
+                        pboBonusOrange.Image = x;
                         break;
                     case "p":
                         pboBonusPink.SizeMode = PictureBoxSizeMode.StretchImage;
-                        pboBonusPink.Image = five;
+                        pboBonusPink.Image = x;
                         break;
                     case "y":
                         pboBonusYellow.SizeMode = PictureBoxSizeMode.StretchImage;
-                        pboBonusYellow.Image = five;
+                        pboBonusYellow.Image = x;
                         break;
                 }
             }
@@ -338,19 +379,18 @@ namespace Encore
             if (Board.ContainsStar(clickedBox.Name))
             {
                 starPoints += 2;
+                txtStarPoints.Text = starPoints.ToString();
             }
 
             if (clicksLeft == 0)
             {
-                if (numberDieSelected.getNumberFace() == -1)
+                if (numberDieSelected.getValue() == -1)
                 {
-                    wildPoints--;
                     MarkWild();
                 }
 
-                if (colorDieSelected.getColor() == "wild")
+                if (colorDieSelected.getValue() == -1)
                 {
-                    wildPoints--;
                     MarkWild();
                 }
 
@@ -371,7 +411,9 @@ namespace Encore
 
         private void MarkWild()
         {
-            
+            wildPoints--;
+            txtUnusedWilds.Text = wildPoints.ToString();
+            wilds[wildPoints].BackColor = Color.Red;
         }
 
         private void btnRoll_Click(object sender, EventArgs e)
@@ -386,6 +428,11 @@ namespace Encore
 
             turnsLeft--;
             lblTurnsLeft.Text = turnsLeft.ToString();
+            if (turnsLeft == 0)
+            {
+                btnRoll.Enabled = false;
+                btnRoll.BackColor = Color.DarkGray;
+            }
 
             pboNumberDie1.BorderStyle = BorderStyle.None;
             pboNumberDie1.BackColor = Color.Empty;
@@ -554,6 +601,7 @@ namespace Encore
                         box.BorderStyle = BorderStyle.Fixed3D;
                         box.Enabled = true;
                         btnRoll.Enabled = true;
+                        btnRoll.BackColor = SystemColors.Control;
                     }
 
                 }
@@ -582,6 +630,7 @@ namespace Encore
                         box.BorderStyle = BorderStyle.Fixed3D;
                         box.Enabled = true;
                         btnRoll.Enabled = true;
+                        btnRoll.BackColor = SystemColors.Control;
                     }
                 }
 
