@@ -83,6 +83,7 @@
       <DependentUpon>encoreDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="DataAccess\EncoreDB.cs" />
+    <Compile Include="Models\GamePlayed.cs" />
     <Compile Include="Views\frmGame.cs">
       <SubType>Form</SubType>
     </Compile>
