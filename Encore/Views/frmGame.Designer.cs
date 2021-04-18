@@ -40,11 +40,11 @@
             this.pboBonusBlue = new System.Windows.Forms.PictureBox();
             this.pboBonusPink = new System.Windows.Forms.PictureBox();
             this.pboBonusOrange = new System.Windows.Forms.PictureBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.txtColorPoints = new System.Windows.Forms.TextBox();
+            this.txtColumnPoints = new System.Windows.Forms.TextBox();
+            this.txtUnusedWilds = new System.Windows.Forms.TextBox();
+            this.txtStarPoints = new System.Windows.Forms.TextBox();
+            this.txtTotalScore = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -167,45 +167,45 @@
             this.pboBonusOrange.TabIndex = 10;
             this.pboBonusOrange.TabStop = false;
             // 
-            // textBox1
+            // txtColorPoints
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(1449, 334);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(68, 49);
-            this.textBox1.TabIndex = 11;
+            this.txtColorPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtColorPoints.Location = new System.Drawing.Point(1449, 334);
+            this.txtColorPoints.Name = "txtColorPoints";
+            this.txtColorPoints.Size = new System.Drawing.Size(68, 49);
+            this.txtColorPoints.TabIndex = 11;
             // 
-            // textBox2
+            // txtColumnPoints
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(1449, 389);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(68, 49);
-            this.textBox2.TabIndex = 12;
+            this.txtColumnPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtColumnPoints.Location = new System.Drawing.Point(1449, 389);
+            this.txtColumnPoints.Name = "txtColumnPoints";
+            this.txtColumnPoints.Size = new System.Drawing.Size(68, 49);
+            this.txtColumnPoints.TabIndex = 12;
             // 
-            // textBox3
+            // txtUnusedWilds
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(1449, 444);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(68, 49);
-            this.textBox3.TabIndex = 13;
+            this.txtUnusedWilds.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUnusedWilds.Location = new System.Drawing.Point(1449, 444);
+            this.txtUnusedWilds.Name = "txtUnusedWilds";
+            this.txtUnusedWilds.Size = new System.Drawing.Size(68, 49);
+            this.txtUnusedWilds.TabIndex = 13;
             // 
-            // textBox4
+            // txtStarPoints
             // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(1449, 499);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(68, 49);
-            this.textBox4.TabIndex = 14;
+            this.txtStarPoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtStarPoints.Location = new System.Drawing.Point(1449, 499);
+            this.txtStarPoints.Name = "txtStarPoints";
+            this.txtStarPoints.Size = new System.Drawing.Size(68, 49);
+            this.txtStarPoints.TabIndex = 14;
             // 
-            // textBox5
+            // txtTotalScore
             // 
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(1449, 577);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(68, 49);
-            this.textBox5.TabIndex = 15;
+            this.txtTotalScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotalScore.Location = new System.Drawing.Point(1449, 577);
+            this.txtTotalScore.Name = "txtTotalScore";
+            this.txtTotalScore.Size = new System.Drawing.Size(68, 49);
+            this.txtTotalScore.TabIndex = 15;
             // 
             // label5
             // 
@@ -298,11 +298,11 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtTotalScore);
+            this.Controls.Add(this.txtStarPoints);
+            this.Controls.Add(this.txtUnusedWilds);
+            this.Controls.Add(this.txtColumnPoints);
+            this.Controls.Add(this.txtColorPoints);
             this.Controls.Add(this.pboBonusOrange);
             this.Controls.Add(this.pboBonusPink);
             this.Controls.Add(this.pboBonusBlue);
@@ -346,11 +346,11 @@
         private System.Windows.Forms.PictureBox pboBonusBlue;
         private System.Windows.Forms.PictureBox pboBonusPink;
         private System.Windows.Forms.PictureBox pboBonusOrange;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox txtColorPoints;
+        private System.Windows.Forms.TextBox txtColumnPoints;
+        private System.Windows.Forms.TextBox txtUnusedWilds;
+        private System.Windows.Forms.TextBox txtStarPoints;
+        private System.Windows.Forms.TextBox txtTotalScore;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;

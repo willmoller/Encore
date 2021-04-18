@@ -32,40 +32,60 @@ namespace Encore
             AllSquares = new Dictionary<string, Square>();
         }
 
-        //public int getGroupSize(string group)
-        //{
-            
-        //    switch(group.Substring(0, 1))
-        //    {
-        //        case "b":
-        //            BlueSquares.FirstOrDefault().Group.Equals(group);
-        //            BlueSquares.
-        //            break;
-        //        case "g":
-        //            break;
-        //        case "o":
-        //            break;
-        //        case "p":
-        //            break;
-        //        case "y":
-        //            break;
-        //    }
-        //}
+        public int getGroupSize(string name)
+        {
+
+            return AllSquares[name].GroupSize;
+        }
 
         public void updateGroupSize(string group)
         {
-            switch (group.Substring(0, 0))
+            switch (group.Substring(0, 1))
             {
                 case "b":
-
+                    foreach (Square square in BlueSquares)
+                    {
+                        if (square.Group == group)
+                        {
+                            square.GroupSize--;
+                        }
+                    }
                     break;
                 case "g":
+                    foreach (Square square in GreenSquares)
+                    {
+                        if (square.Group == group)
+                        {
+                            square.GroupSize--;
+                        }
+                    }
                     break;
                 case "o":
+                    foreach (Square square in OrangeSquares)
+                    {
+                        if (square.Group == group)
+                        {
+                            square.GroupSize--;
+                        }
+                    }
                     break;
                 case "p":
+                    foreach (Square square in PinkSquares)
+                    {
+                        if (square.Group == group)
+                        {
+                            square.GroupSize--;
+                        }
+                    }
                     break;
                 case "y":
+                    foreach (Square square in YellowSquares)
+                    {
+                        if (square.Group == group)
+                        {
+                            square.GroupSize--;
+                        }
+                    }
                     break;
             }
         }
@@ -85,57 +105,33 @@ namespace Encore
             }
 
             return AllSquares[name].GetCanClick() && correctGroupSize && correctColor;
-            
-            //switch (color)
-            //{
-            //    case "b":
-            //        foreach (Square s in BlueSquares)
-            //        {
-            //            if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
-            //            {
-            //                return true;
-            //            }
-            //        }
-            //        return false;
-            //    case "g":
-            //        foreach (Square s in GreenSquares)
-            //        {
-            //            if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
-            //            {
-            //                return true;
-            //            }
-            //        }
-            //        return false;
-            //    case "o":
-            //        foreach (Square s in OrangeSquares)
-            //        {
-            //            if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
-            //            {
-            //                return true;
-            //            }
-            //        }
-            //        return false;
-            //    case "p":
-            //        foreach (Square s in PinkSquares)
-            //        {
-            //            if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
-            //            {
-            //                return true;
-            //            }
-            //        }
-            //        return false;
-            //    case "y":
-            //        foreach (Square s in YellowSquares)
-            //        {
-            //            if (s.GetSquareName().Equals(name) && s.GetCanClick() && s.GroupSize <= number)
-            //            {
-            //                return true;
-            //            }
-            //        }
-            //        return false;
-            //    default:
-            //        return false;
-            //}
+        }
+
+        public bool CheckIfClickable(string name)
+        {
+            return AllSquares[name].GetCanClick();
+        }
+
+        public bool CheckIfClickable(int number, string name)
+        {
+            bool correctGroupSize = false;
+            if (number <= AllSquares[name].GroupSize)
+            {
+                correctGroupSize = true;
+            }
+
+            return AllSquares[name].GetCanClick() && correctGroupSize;
+        }
+
+        public bool CheckIfClickable(string color, string name)
+        {
+            bool correctColor = false;
+            if (AllSquares[name].Group.Substring(0, 1) == color)
+            {
+                correctColor = true;
+            }
+
+            return AllSquares[name].GetCanClick() && correctColor;
         }
 
         public bool CheckIfClicked(string name)
@@ -257,6 +253,24 @@ namespace Encore
                     break;
             }
             return group;
+        }
+
+        internal bool ColumnFilled(string name)
+        {
+            int column = AllSquares[name].YCoordinate;
+            for (int i = 0; i < 7; i++)
+            {
+                if (!AllSquares[i + "," + column].Clicked)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        internal int GetYCoordinate(string name)
+        {
+            return AllSquares[name].YCoordinate;
         }
     }
 }

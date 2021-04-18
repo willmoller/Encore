@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace Encore
 {
     
-    public class Square//:PictureBox
+    public class Square
     {
         public bool Star { get; set; }
         public bool Clicked { get; set; }
@@ -21,9 +21,6 @@ namespace Encore
 
         private string squareName;
         private bool canClick;
-
-        //private bool star;
-        //private bool canClick;
 
         public Square()
         {
@@ -53,6 +50,12 @@ namespace Encore
         public void SetClickedTrue()
         {
             Clicked = true;
+            canClick = false;
+        }
+
+        public void DecreaseGroupSize()
+        {
+            GroupSize--;
         }
     }
 }

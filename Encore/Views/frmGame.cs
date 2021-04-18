@@ -14,10 +14,7 @@ namespace Encore
     public partial class frmGame : Form
     {
         public Board Board { get; set; }
-        //private Square[,] squares = new Square[7, 15];
-        private int starsRemaining = 15;
-        //private List<Square> StarList = new List<Square>();
-        //private List<Square> CanClickList;
+        private int starsPoints, columnPoints, colorPoints, wildPoints, totalPoints;
         private List<PictureBox> Boxes;
         private Dice dice;
         private List<String> diceKeys;
@@ -36,6 +33,11 @@ namespace Encore
 
         private void frmGame_Load(object sender, EventArgs e)
         {
+            starsPoints = -30;
+            columnPoints = 0;
+            colorPoints = 0;
+            wildPoints = 8;
+            totalPoints = 0;
             DieColor colorDie1 = new DieColor();
             DieColor colorDie2 = new DieColor();
             DieNumber numberDie1 = new DieNumber();
@@ -69,8 +71,6 @@ namespace Encore
             CreatePictureBoxes(Board.PinkSquares, Color.HotPink);
             CreatePictureBoxes(Board.YellowSquares, Color.Yellow);
 
-            
-
             SetHColumn();
             //SetColors();
             //SetStars();
@@ -101,7 +101,6 @@ namespace Encore
                 box.BackColor = color;
                 box.Enabled = false;
                 Boxes.Add(box);
-                //Board.AllSquares.Add(box.Name, square);
                 Controls.Add(box);
             }
         }
@@ -154,6 +153,21 @@ namespace Encore
             columnScoring[12].Image = three;
             columnScoring[13].Image = three;
             columnScoring[14].Image = five;
+            columnScoring[0].Name = "5";
+            columnScoring[1].Name = "3";
+            columnScoring[2].Name = "3";
+            columnScoring[3].Name = "3";
+            columnScoring[4].Name = "2";
+            columnScoring[5].Name = "2";
+            columnScoring[6].Name = "2";
+            columnScoring[7].Name = "1";
+            columnScoring[8].Name = "2";
+            columnScoring[9].Name = "2";
+            columnScoring[10].Name = "2";
+            columnScoring[11].Name = "3";
+            columnScoring[12].Name = "3";
+            columnScoring[13].Name = "3";
+            columnScoring[14].Name = "5";
         }
 
         private void SetWilds()
@@ -212,18 +226,23 @@ namespace Encore
             Board.SetClickedBox(clickedBox.BackColor.ToString(), clickedBox);
             btnRoll.Enabled = false;
             clickedBox.Enabled = false;
-            clickedBox.BorderStyle = BorderStyle.FixedSingle;
+            clickedBox.BorderStyle = BorderStyle.FixedSingle;   
             clicksLeft--;
 
             // use clickedBox's name to get all boxes with same Group into a List<>.
             // determine boxes in the List<> that are adjacent to it to make them "CanClick" and Enabled
             boxGroupNames = Board.GetGroup(clickedBox);
+            Board.updateGroupSize(clickedBox.Tag.ToString());
             List<PictureBox> boxGroup = new List<PictureBox>();
             foreach (PictureBox pb in Boxes)
             {
                 if (boxGroupNames.Contains(pb.Name))
                 {
                     boxGroup.Add(pb);
+                } else
+                {
+                    pb.Enabled = false;
+                    pb.BorderStyle = BorderStyle.FixedSingle;
                 }
             }
             string[] coordinateStrings = clickedBox.Name.Split(',');
@@ -238,10 +257,11 @@ namespace Encore
             string newCoordinate3 = xCoordinate.ToString() + "," + yPlus1.ToString();
             string newCoordinate4 = xCoordinate.ToString() + "," + yMinus1.ToString();
 
-            if (clicksLeft > 0)
+            if (clicksLeft > 0 && Board.getGroupSize(clickedBox.Name) > 0)
             {
                 foreach (PictureBox pbo in boxGroup)
                 {
+                    
                     if (!Board.CheckIfClicked(pbo.Name) && 
                         (pbo.Name.Equals(newCoordinate1) ||
                         pbo.Name.Equals(newCoordinate2) ||
@@ -263,7 +283,7 @@ namespace Encore
                 }
             }
 
-            
+
 
 
             //clickedBox.Clicked = true;
@@ -272,14 +292,14 @@ namespace Encore
             //    clickedBox.Star = false;
             //    StarList.Remove(clickedBox);
             //}
-            CheckColumnScore();
+            if (Board.ColumnFilled(clickedBox.Name))
+            {
+                columnPoints += Int32.Parse(columnScoring[Board.GetYCoordinate(clickedBox.Name)].Name);
+                txtColumnPoints.Text = columnPoints.ToString();
+                columnScoring[Board.GetYCoordinate(clickedBox.Name)].BackColor = Color.Green;
+            }
             CheckColorScore();
             CheckEndOfGame();
-        }
-
-        private void CheckColumnScore()
-        {
-            
         }
 
         private void CheckColorScore()
@@ -413,21 +433,44 @@ namespace Encore
             if (dieColor == "w" && dieNumber == -1)
             {
                 // any color/number combination
+                //dieNumber = 5;
+                clicksLeft = 5;
                 foreach (PictureBox box in Boxes)
                 {
-                    if (true)
-                    box.Enabled = true;
+                    if (Board.CheckIfClickable(box.Name)) {
+                        box.BorderStyle = BorderStyle.Fixed3D;
+                        box.Enabled = true;
+                        btnRoll.Enabled = true;
+                    }
+
                 }
 
             } else if (dieColor == "w")
             {
                 // any color possible with specific number
-
+                foreach (PictureBox box in Boxes)
+                {
+                    if (Board.CheckIfClickable(dieNumber, box.Name))
+                    {
+                        box.BorderStyle = BorderStyle.Fixed3D;
+                        box.Enabled = true;
+                    }
+                }
 
             } else if (dieNumber == -1)
             {
                 // any number possible with specific color
-
+                //dieNumber = 5;
+                clicksLeft = 5;
+                foreach (PictureBox box in Boxes)
+                {
+                    if (Board.CheckIfClickable(dieColor, box.Name))
+                    {
+                        box.BorderStyle = BorderStyle.Fixed3D;
+                        box.Enabled = true;
+                        btnRoll.Enabled = true;
+                    }
+                }
 
             } else
             {
