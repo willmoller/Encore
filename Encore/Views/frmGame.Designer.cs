@@ -61,6 +61,8 @@
             this.pboWild6 = new System.Windows.Forms.PictureBox();
             this.pboWild7 = new System.Windows.Forms.PictureBox();
             this.pboWild8 = new System.Windows.Forms.PictureBox();
+            this.btnClose = new System.Windows.Forms.Button();
+            this.btnReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pboNumberDie1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboNumberDie2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboColorDie1)).BeginInit();
@@ -390,12 +392,36 @@
             this.pboWild8.TabIndex = 35;
             this.pboWild8.TabStop = false;
             // 
+            // btnClose
+            // 
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.Location = new System.Drawing.Point(12, 687);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(100, 48);
+            this.btnClose.TabIndex = 36;
+            this.btnClose.Text = "Close";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnReset
+            // 
+            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReset.Location = new System.Drawing.Point(134, 687);
+            this.btnReset.Name = "btnReset";
+            this.btnReset.Size = new System.Drawing.Size(100, 48);
+            this.btnReset.TabIndex = 37;
+            this.btnReset.Text = "Reset";
+            this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
             // frmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1632, 753);
+            this.Controls.Add(this.btnReset);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.pboWild8);
             this.Controls.Add(this.pboWild7);
             this.Controls.Add(this.pboWild6);
@@ -490,5 +516,7 @@
         private System.Windows.Forms.PictureBox pboWild6;
         private System.Windows.Forms.PictureBox pboWild7;
         private System.Windows.Forms.PictureBox pboWild8;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnReset;
     }
 }

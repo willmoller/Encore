@@ -44,7 +44,7 @@ namespace Encore
             } 
             else
             {
-                frmGame gameForm = new frmGame(cboBoardSelection.SelectedIndex);
+                frmGame gameForm = new frmGame(cboBoardSelection.SelectedIndex, user);
                 this.Hide();
                 gameForm.ShowDialog();
                 this.Close();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Encore.DataAccess;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,7 +21,7 @@ namespace Encore
     // add legal moves validation? or, allow create visual to indicate to user to skip this turn (in case of no valid moves).
     // put up score message based on final score.
     // save score to database.
-    // create login
+    // create login (DONE)
     // create admin view to see stats by user or board
     // create user homepage - select board to play and view stats
 
@@ -38,10 +39,12 @@ namespace Encore
         private bool colorSelected = false;
         private int turnsLeft, clicksLeft, boardID;
         private List<string> boxGroupNames;
+        private User user;
 
-        public frmGame(int boardID)
+        public frmGame(int boardID, User user)
         {
             this.boardID = boardID;
+            this.user = user;
             InitializeComponent();
         }
 
@@ -398,15 +401,80 @@ namespace Encore
                 {
                     btnRoll.Enabled = false;
                     btnRoll.BackColor = Color.DarkGray;
-                    totalPoints += colorPoints;
-                    totalPoints += columnPoints;
-                    totalPoints += starPoints;
-                    totalPoints += wildPoints;
-                    txtUnusedWilds.Text = wildPoints.ToString();
-                    txtStarPoints.Text = starPoints.ToString();
-                    txtTotalScore.Text = totalPoints.ToString();
+                    FinishGame();
                 }
             }
+        }
+
+        private void FinishGame()
+        {
+            totalPoints += colorPoints;
+            totalPoints += columnPoints;
+            totalPoints += starPoints;
+            totalPoints += wildPoints;
+            txtUnusedWilds.Text = wildPoints.ToString();
+            txtStarPoints.Text = starPoints.ToString();
+            txtTotalScore.Text = totalPoints.ToString();
+            GamesPlayedDB.InsertGamePlayed(totalPoints, user.UserID, boardID);
+
+            string message = "";
+            switch (totalPoints)
+            {
+                case int n when n < 0:
+                    message = "You should be ashamed. We will be alerting your friends.";
+                    break;
+                case 0:
+                    message = "Checkers. Do you like checkers?";
+                    break;
+                case int n when n > 0 && n <= 4:
+                    message = "Maybe there's something else you could practice?";
+                    break;
+                case int n when n > 4 && n <= 8:
+                    message = "Not very good at all.";
+                    break;
+                case int n when n > 8 && n <= 12:
+                    message = "Was that your first try?";
+                    break;
+                case int n when n > 12 && n <= 16:
+                    message = "Ok, but I bet you do better on your next try.";
+                    break;
+                case int n when n > 16 && n <= 20:
+                    message = "That was probably not your first time.";
+                    break;
+                case int n when n > 20 && n <= 24:
+                    message = "that went well.";
+                    break;
+                case int n when n > 24 && n <= 28:
+                    message = "Hopefully done without cheating.";
+                    break;
+                case int n when n > 28 && n <= 32:
+                    message = "Excellent! A great result!";
+                    break;
+                case int n when n > 32 && n <= 36:
+                    message = "You could be a professional ENCORE! player!";
+                    break;
+                case int n when n > 36 && n <= 40:
+                    message = "Do your friends call you The Brain?";
+                    break;
+                case int n when n > 40:
+                    message = "So there are super heroes!";
+                    break;
+            }
+
+            MessageBox.Show("Your score was " + totalPoints + ".\n\n" + message, "Game Over");
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            // reset the board... or open a new board?
+            this.Hide();
+            frmGame gameForm = new frmGame(boardID, user);
+            gameForm.ShowDialog();
         }
 
         private void MarkWild()
@@ -418,66 +486,67 @@ namespace Encore
 
         private void btnRoll_Click(object sender, EventArgs e)
         {
-            pboColorDie1.Enabled = true;
-            pboColorDie2.Enabled = true;
-            pboNumberDie1.Enabled = true;
-            pboNumberDie2.Enabled = true;
-            colorSelected = false;
-            numberSelected = false;
-
-
-            turnsLeft--;
-            lblTurnsLeft.Text = turnsLeft.ToString();
             if (turnsLeft == 0)
             {
-                btnRoll.Enabled = false;
-                btnRoll.BackColor = Color.DarkGray;
+                FinishGame();
             }
-
-            pboNumberDie1.BorderStyle = BorderStyle.None;
-            pboNumberDie1.BackColor = Color.Empty;
-            pboNumberDie2.BorderStyle = BorderStyle.None;
-            pboNumberDie2.BackColor = Color.Empty;
-            pboColorDie1.BorderStyle = BorderStyle.None;
-            pboColorDie1.BackColor = Color.Empty;
-            pboColorDie2.BorderStyle = BorderStyle.None;
-            pboColorDie2.BackColor = Color.Empty;
-
-            dice.RollDice();
-            pboColorDie1.Image = dice.DiceList["color1"].getImage();
-            pboColorDie2.Image = dice.DiceList["color2"].getImage();
-            pboNumberDie1.Image = dice.DiceList["number1"].getImage();
-            pboNumberDie2.Image = dice.DiceList["number2"].getImage();
-
-            foreach (PictureBox box in Boxes)
+            else
             {
-                box.Enabled = false;
-            }
+                pboColorDie1.Enabled = true;
+                pboColorDie2.Enabled = true;
+                pboNumberDie1.Enabled = true;
+                pboNumberDie2.Enabled = true;
+                colorSelected = false;
+                numberSelected = false;
 
-            if (wildPoints == 0)
-            {
-                if (dice.DiceList["color1"].getValue() == -1)
+                turnsLeft--;
+                lblTurnsLeft.Text = turnsLeft.ToString();
+
+                pboNumberDie1.BorderStyle = BorderStyle.None;
+                pboNumberDie1.BackColor = Color.Empty;
+                pboNumberDie2.BorderStyle = BorderStyle.None;
+                pboNumberDie2.BackColor = Color.Empty;
+                pboColorDie1.BorderStyle = BorderStyle.None;
+                pboColorDie1.BackColor = Color.Empty;
+                pboColorDie2.BorderStyle = BorderStyle.None;
+                pboColorDie2.BackColor = Color.Empty;
+
+                dice.RollDice();
+                pboColorDie1.Image = dice.DiceList["color1"].getImage();
+                pboColorDie2.Image = dice.DiceList["color2"].getImage();
+                pboNumberDie1.Image = dice.DiceList["number1"].getImage();
+                pboNumberDie2.Image = dice.DiceList["number2"].getImage();
+
+                foreach (PictureBox box in Boxes)
                 {
-                    pboColorDie1.Enabled = false;
-                    pboColorDie1.BackColor = Color.Red;
+                    box.Enabled = false;
                 }
 
-                if (dice.DiceList["color2"].getValue() == -1)
+                if (wildPoints == 0)
                 {
-                    pboColorDie2.Enabled = false;
-                    pboColorDie2.BackColor = Color.Red;
-                }
+                    if (dice.DiceList["color1"].getValue() == -1)
+                    {
+                        pboColorDie1.Enabled = false;
+                        pboColorDie1.BackColor = Color.Red;
+                    }
 
-                if (dice.DiceList["number1"].getValue() == -1)
-                {
-                    pboNumberDie1.Enabled = false;
-                    pboNumberDie1.BackColor = Color.Red;
-                }
+                    if (dice.DiceList["color2"].getValue() == -1)
+                    {
+                        pboColorDie2.Enabled = false;
+                        pboColorDie2.BackColor = Color.Red;
+                    }
 
-                if (dice.DiceList["number2"].getValue() == -1)
-                {
-                    pboNumberDie2.Enabled = false;
-                    pboNumberDie2.BackColor = Color.Red;
+                    if (dice.DiceList["number1"].getValue() == -1)
+                    {
+                        pboNumberDie1.Enabled = false;
+                        pboNumberDie1.BackColor = Color.Red;
+                    }
+
+                    if (dice.DiceList["number2"].getValue() == -1)
+                    {
+                        pboNumberDie2.Enabled = false;
+                        pboNumberDie2.BackColor = Color.Red;
+                    }
                 }
             }
         }
