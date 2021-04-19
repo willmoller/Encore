@@ -16,5 +16,39 @@ namespace Encore.Views
         {
             InitializeComponent();
         }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            string userId = txtUsername.Text;
+            string pwd = txtPassword.Text;
+
+            User user = UserDB.UserLogin(userId, pwd);
+
+            if (user != null)
+            {
+                if (user.Role == "player")
+                {
+                    this.Hide();
+                    frmMainMenu main = new frmMainMenu(user);
+                    main.ShowDialog();
+                    this.Show();
+                } else
+                {
+                    this.Hide();
+                    frmAdminView admin = new frmAdminView(user);
+                    admin.ShowDialog();
+                    this.Show();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Invalid username or password.", "Invalid Credentials");
+            }
+        }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

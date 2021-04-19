@@ -34,13 +34,14 @@
             this.btnHighScores = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cboBoardSelection = new System.Windows.Forms.ComboBox();
+            this.lblHello = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnPlayGame
             // 
             this.btnPlayGame.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPlayGame.Location = new System.Drawing.Point(532, 271);
+            this.btnPlayGame.Location = new System.Drawing.Point(509, 297);
             this.btnPlayGame.Name = "btnPlayGame";
             this.btnPlayGame.Size = new System.Drawing.Size(120, 53);
             this.btnPlayGame.TabIndex = 1;
@@ -84,10 +85,21 @@
             // 
             this.cboBoardSelection.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboBoardSelection.FormattingEnabled = true;
-            this.cboBoardSelection.Location = new System.Drawing.Point(210, 276);
+            this.cboBoardSelection.Location = new System.Drawing.Point(187, 302);
             this.cboBoardSelection.Name = "cboBoardSelection";
             this.cboBoardSelection.Size = new System.Drawing.Size(286, 44);
             this.cboBoardSelection.TabIndex = 5;
+            // 
+            // lblHello
+            // 
+            this.lblHello.AutoSize = true;
+            this.lblHello.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHello.ForeColor = System.Drawing.Color.White;
+            this.lblHello.Location = new System.Drawing.Point(239, 247);
+            this.lblHello.Name = "lblHello";
+            this.lblHello.Size = new System.Drawing.Size(64, 25);
+            this.lblHello.TabIndex = 6;
+            this.lblHello.Text = "label1";
             // 
             // frmMainMenu
             // 
@@ -95,6 +107,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblHello);
             this.Controls.Add(this.cboBoardSelection);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnHighScores);
@@ -106,6 +119,7 @@
             this.Load += new System.EventHandler(this.frmMainMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -115,6 +129,7 @@
         private System.Windows.Forms.Button btnHighScores;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ComboBox cboBoardSelection;
+        private System.Windows.Forms.Label lblHello;
     }
 }
 

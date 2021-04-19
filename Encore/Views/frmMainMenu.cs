@@ -12,9 +12,11 @@ namespace Encore
 {
     public partial class frmMainMenu : Form
     {
-        public frmMainMenu()
+        private User user;
+        public frmMainMenu(User user)
         {
             InitializeComponent();
+            this.user = user;
         }
 
         private void frmMainMenu_Load(object sender, EventArgs e)
@@ -30,6 +32,8 @@ namespace Encore
                 cboBoardSelection.Items.Add(s);
             }
             cboBoardSelection.SelectedIndex = 0;
+
+            lblHello.Text = "Hello, " + user.FirstName + ".";
         }
 
         private void btnPlayGame_Click(object sender, EventArgs e)

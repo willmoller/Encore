@@ -84,6 +84,12 @@
     </Compile>
     <Compile Include="DataAccess\EncoreDB.cs" />
     <Compile Include="Models\GamePlayed.cs" />
+    <Compile Include="Views\frmAdminView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmAdminView.Designer.cs">
+      <DependentUpon>frmAdminView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\frmGame.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,8 +116,14 @@
     </Compile>
     <Compile Include="Models\User.cs" />
     <Compile Include="DataAccess\UserDB.cs" />
+    <EmbeddedResource Include="Views\frmAdminView.resx">
+      <DependentUpon>frmAdminView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\frmGame.resx">
       <DependentUpon>frmGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmMainMenu.resx">
       <DependentUpon>frmMainMenu.cs</DependentUpon>
