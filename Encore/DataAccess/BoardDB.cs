@@ -40,10 +40,19 @@ namespace Encore
                             board.BackgroundColor = Color.DarkOrange;
                             break;
                         case "y":
-                            board.BackgroundColor = Color.LightGoldenrodYellow;
+                            board.BackgroundColor = Color.Goldenrod;
                             break;
                         case "p":
                             board.BackgroundColor = Color.Purple;
+                            break;
+                        case "k":
+                            board.BackgroundColor = Color.Pink;
+                            break;
+                        case "g":
+                            board.BackgroundColor = Color.LightGreen;
+                            break;
+                        case "l":
+                            board.BackgroundColor = Color.DeepSkyBlue;
                             break;
                     }
                     string[] blues = boardReader["Blues"].ToString().Split('|');

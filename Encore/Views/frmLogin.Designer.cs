@@ -44,7 +44,7 @@ namespace Encore.Views
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(17, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(322, 39);
+            this.label1.Size = new System.Drawing.Size(311, 38);
             this.label1.TabIndex = 0;
             this.label1.Text = "Welcome to Encore!";
             // 
@@ -61,6 +61,7 @@ namespace Encore.Views
             this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.Location = new System.Drawing.Point(175, 197);
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '●';
             this.txtPassword.Size = new System.Drawing.Size(147, 34);
             this.txtPassword.TabIndex = 2;
             // 
@@ -108,6 +109,7 @@ namespace Encore.Views
             // 
             // frmLogin
             // 
+            this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(358, 385);

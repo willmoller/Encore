@@ -24,7 +24,7 @@ namespace Encore
             string[] boards =
             {
                 "Select a board...",
-                "Black", "Orange", "Yellow", "Purple"
+                "Black", "Orange", "Yellow", "Purple", "Pink", "Green", "Blue"
             };
 
             foreach (String s in boards)
@@ -47,7 +47,7 @@ namespace Encore
                 frmGame gameForm = new frmGame(cboBoardSelection.SelectedIndex, user);
                 this.Hide();
                 gameForm.ShowDialog();
-                this.Close();
+                this.Show();
             }
             
         }
