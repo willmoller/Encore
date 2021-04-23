@@ -65,7 +65,7 @@
             this.btnHighScores.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHighScores.Location = new System.Drawing.Point(12, 385);
             this.btnHighScores.Name = "btnHighScores";
-            this.btnHighScores.Size = new System.Drawing.Size(245, 53);
+            this.btnHighScores.Size = new System.Drawing.Size(316, 53);
             this.btnHighScores.TabIndex = 3;
             this.btnHighScores.Text = "My High Scores";
             this.btnHighScores.UseVisualStyleBackColor = true;

@@ -11,6 +11,7 @@ namespace Encore
     public class Board
     {
         public int BoardID { get; set; }
+        public string BoardName { get; set; }
         public Color BackgroundColor { get; set; }
         public Square[] BlueSquares { get; set; }
         public Square[] GreenSquares { get; set; }

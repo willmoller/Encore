@@ -177,5 +177,135 @@ namespace Encore
                 connection.Close();
             }
         }
+
+        internal static List<double> GetStatsAllBoards()
+        {
+            SqlConnection connection = EncoreDB.GetConnection();
+            string sqlState = "SELECT ROUND(AVG(CAST(GameScore AS FLOAT)), 1) AS Average, CAST(Count(UserID) AS FLOAT) AS Total " +
+                "FROM GamesPlayed ";
+
+            SqlCommand cmd = new SqlCommand(sqlState, connection);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader userReader = cmd.ExecuteReader();
+                List<double> stats = new List<double>();
+
+                if (userReader.Read())
+                {
+                    stats.Add((double)userReader["Average"]);
+                    stats.Add((double)userReader["Total"]);
+                    return stats;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        internal static List<double> GetStatsByBoard(int boardId)
+        {
+            SqlConnection connection = EncoreDB.GetConnection();
+            string sqlState = "SELECT ROUND(AVG(CAST(GameScore AS FLOAT)), 1) AS Average, CAST(Count(UserID) AS FLOAT) AS Total " +
+                "FROM GamesPlayed " +
+                "WHERE BoardID = @boardId";
+
+            SqlCommand cmd = new SqlCommand(sqlState, connection);
+            cmd.Parameters.AddWithValue("@boardId", boardId);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader userReader = cmd.ExecuteReader();
+                List<double> stats = new List<double>();
+
+                if (userReader.Read())
+                {
+                    stats.Add((double)userReader["Average"]);
+                    stats.Add((double)userReader["Total"]);
+                    return stats;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        internal static List<Board> GetAllBoards()
+        {
+            SqlConnection connection = EncoreDB.GetConnection();
+            string sqlState = "Select * From Board";
+
+            SqlCommand cmd = new SqlCommand(sqlState, connection);
+
+            try
+            {
+                connection.Open();
+                List<Board> boards = new List<Board>();
+                SqlDataReader boardReader = cmd.ExecuteReader();
+
+                while (boardReader.Read())
+                {
+                    Board board = new Board();
+                    board.BoardID = (int)boardReader["BoardID"];
+                    string color = boardReader["BackgroundColor"].ToString();
+                    switch (color)
+                    {
+                        case "b":
+                            board.BoardName = "Black";
+                            break;
+                        case "o":
+                            board.BoardName = "Orange";
+                            break;
+                        case "y":
+                            board.BoardName = "Yellow";
+                            break;
+                        case "p":
+                            board.BoardName = "Purple";
+                            break;
+                        case "k":
+                            board.BoardName = "Pink";
+                            break;
+                        case "g":
+                            board.BoardName = "Green";
+                            break;
+                        case "l":
+                            board.BoardName = "Blue";
+                            break;
+                    }
+                    boards.Add(board);
+                }
+                return boards;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }

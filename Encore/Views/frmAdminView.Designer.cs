@@ -29,17 +29,24 @@ namespace Encore.Views
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblHello = new System.Windows.Forms.Label();
             this.rdoUser = new System.Windows.Forms.RadioButton();
             this.rdoBoard = new System.Windows.Forms.RadioButton();
             this.rdoAll = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.lboList = new System.Windows.Forms.ListBox();
             this.lblName = new System.Windows.Forms.Label();
             this.txtPlays = new System.Windows.Forms.TextBox();
             this.txtAverage = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.encoreDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.encoreDataSet = new Encore.encoreDataSet();
+            this.lvList = new System.Windows.Forms.ListView();
+            this.ID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            ((System.ComponentModel.ISupportInitialize)(this.encoreDataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.encoreDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // lblHello
@@ -96,15 +103,6 @@ namespace Encore.Views
             this.label1.TabIndex = 4;
             this.label1.Text = "Please select data to review:";
             // 
-            // lboList
-            // 
-            this.lboList.FormattingEnabled = true;
-            this.lboList.ItemHeight = 16;
-            this.lboList.Location = new System.Drawing.Point(59, 155);
-            this.lboList.Name = "lboList";
-            this.lboList.Size = new System.Drawing.Size(168, 244);
-            this.lboList.TabIndex = 5;
-            // 
             // lblName
             // 
             this.lblName.AutoSize = true;
@@ -151,17 +149,52 @@ namespace Encore.Views
             this.label3.TabIndex = 10;
             this.label3.Text = "Average Score:";
             // 
+            // encoreDataSetBindingSource
+            // 
+            this.encoreDataSetBindingSource.DataSource = this.encoreDataSet;
+            this.encoreDataSetBindingSource.Position = 0;
+            // 
+            // encoreDataSet
+            // 
+            this.encoreDataSet.DataSetName = "encoreDataSet";
+            this.encoreDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // lvList
+            // 
+            this.lvList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ID,
+            this.colName});
+            this.lvList.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lvList.FullRowSelect = true;
+            this.lvList.HideSelection = false;
+            this.lvList.Location = new System.Drawing.Point(10, 140);
+            this.lvList.Name = "lvList";
+            this.lvList.Size = new System.Drawing.Size(307, 286);
+            this.lvList.TabIndex = 11;
+            this.lvList.UseCompatibleStateImageBehavior = false;
+            this.lvList.View = System.Windows.Forms.View.Details;
+            this.lvList.SelectedIndexChanged += new System.EventHandler(this.lvList_SelectedIndexChanged);
+            // 
+            // ID
+            // 
+            this.ID.Text = "ID";
+            // 
+            // colName
+            // 
+            this.colName.Text = "Name";
+            this.colName.Width = 200;
+            // 
             // frmAdminView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(594, 438);
+            this.Controls.Add(this.lvList);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtAverage);
             this.Controls.Add(this.txtPlays);
             this.Controls.Add(this.lblName);
-            this.Controls.Add(this.lboList);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.rdoAll);
             this.Controls.Add(this.rdoBoard);
@@ -170,8 +203,10 @@ namespace Encore.Views
             this.Name = "frmAdminView";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmAdminView";
+            this.Text = "Admin View";
             this.Load += new System.EventHandler(this.frmAdminView_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.encoreDataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.encoreDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -184,11 +219,15 @@ namespace Encore.Views
         private System.Windows.Forms.RadioButton rdoBoard;
         private System.Windows.Forms.RadioButton rdoAll;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ListBox lboList;
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox txtPlays;
         private System.Windows.Forms.TextBox txtAverage;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.BindingSource encoreDataSetBindingSource;
+        private encoreDataSet encoreDataSet;
+        private System.Windows.Forms.ListView lvList;
+        private System.Windows.Forms.ColumnHeader ID;
+        private System.Windows.Forms.ColumnHeader colName;
     }
 }

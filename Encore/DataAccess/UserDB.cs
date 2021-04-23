@@ -116,10 +116,48 @@ namespace Encore
             }
         }
 
+        internal static List<double> GetStatsByUser(int userId)
+        {
+            SqlConnection connection = EncoreDB.GetConnection();
+            string sqlState = "SELECT ROUND(AVG(CAST(GameScore AS FLOAT)), 1) AS Average, CAST(Count(UserID) AS FLOAT) AS Total " +
+                "FROM GamesPlayed " +
+                "WHERE UserID = @userId";
+
+            SqlCommand cmd = new SqlCommand(sqlState, connection);
+            cmd.Parameters.AddWithValue("@userId", userId);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader userReader = cmd.ExecuteReader();
+                List<double> stats = new List<double>();
+
+                if (userReader.Read())
+                {
+                    stats.Add((double)userReader["Average"]);
+                    stats.Add((double)userReader["Total"]);
+                    return stats;
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
         public static List<User> GetAllUsers()
         {
             SqlConnection connection = EncoreDB.GetConnection();
-            string sqlState = "Select * Users where UserId = @userId";
+            string sqlState = "Select * From Users";
 
             SqlCommand cmd = new SqlCommand(sqlState, connection);
 
@@ -136,7 +174,6 @@ namespace Encore
                     user.Username = userReader["Username"].ToString();
                     user.FirstName = userReader["FirstName"].ToString();
                     user.LastName = userReader["LastName"].ToString();
-                    user.Role = userReader["UserRole"].ToString();
                     users.Add(user);
                 }
                 return users;

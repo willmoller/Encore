@@ -96,6 +96,12 @@
     <Compile Include="Views\frmGame.Designer.cs">
       <DependentUpon>frmGame.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\frmHighScores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmHighScores.Designer.cs">
+      <DependentUpon>frmHighScores.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,11 +122,26 @@
     </Compile>
     <Compile Include="Models\User.cs" />
     <Compile Include="DataAccess\UserDB.cs" />
+    <Compile Include="Views\frmRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmRegister.Designer.cs">
+      <DependentUpon>frmRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\frmRules.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\frmRules.Designer.cs">
+      <DependentUpon>frmRules.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Views\frmAdminView.resx">
       <DependentUpon>frmAdminView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmGame.resx">
       <DependentUpon>frmGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmHighScores.resx">
+      <DependentUpon>frmHighScores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
@@ -137,6 +158,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\frmRegister.resx">
+      <DependentUpon>frmRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\frmRules.resx">
+      <DependentUpon>frmRules.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="encoreDataSet.xsc">
       <DependentUpon>encoreDataSet.xsd</DependentUpon>
     </None>
