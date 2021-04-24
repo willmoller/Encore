@@ -202,7 +202,7 @@ namespace Encore
                     switch (board[0])
                     {
                         case "1":
-                            board[1] = "Blue";
+                            board[1] = "Black";
                             break;
                         case "2":
                             board[1] = "Orange";
@@ -222,7 +222,6 @@ namespace Encore
                         case "7":
                             board[1] = "Blue";
                             break;
-
                     }
                     board[2] = boardReader["Average"].ToString();
                     board[3] = boardReader["Total"].ToString();

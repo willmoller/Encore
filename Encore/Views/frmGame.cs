@@ -327,16 +327,6 @@ namespace Encore
                 }
             }
 
-
-
-
-            //clickedBox.Clicked = true;
-            //if (StarList.Contains(clickedBox))
-            //{
-            //    clickedBox.Star = false;
-            //    StarList.Remove(clickedBox);
-            //}
-
             // score column if all boxes in column are filled in
             if (Board.ColumnFilled(clickedBox.Name))
             {
@@ -385,7 +375,7 @@ namespace Encore
                 txtStarPoints.Text = starPoints.ToString();
             }
 
-            if (clicksLeft == 0)
+            if (clicksLeft == 0 || Board.getGroupSize(clickedBox.Name) == 0)
             {
                 if (numberDieSelected.getValue() == -1)
                 {
@@ -471,7 +461,7 @@ namespace Encore
 
         private void btnReset_Click(object sender, EventArgs e)
         {
-            // reset the board... or open a new board?
+            // open a new board
             this.Hide();
             frmGame gameForm = new frmGame(boardID, user);
             gameForm.ShowDialog();
@@ -662,7 +652,6 @@ namespace Encore
             if (dieColor == "w" && dieNumber == -1)
             {
                 // any color/number combination
-                //dieNumber = 5;
                 clicksLeft = 5;
                 foreach (PictureBox box in Boxes)
                 {
@@ -690,7 +679,6 @@ namespace Encore
             } else if (dieNumber == -1)
             {
                 // any number possible with specific color
-                //dieNumber = 5;
                 clicksLeft = 5;
                 foreach (PictureBox box in Boxes)
                 {

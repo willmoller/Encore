@@ -40,7 +40,7 @@ namespace Encore.Views
 
             if (rdoUser.Checked)
             {
-                List<string[]> userStats = UserDB.GetUserStats();
+                List<string[]> userStats = UserDB.GetAllUserStats();
                 int i = 0;
                 foreach (string[] user in userStats)
                 {

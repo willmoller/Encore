@@ -44,6 +44,106 @@ namespace Encore
             }
         }
 
+        internal static List<string[]> GetUserPlaysByID(int userID)
+        {
+            SqlConnection connection = EncoreDB.GetConnection();
+            string sqlState = "SELECT * " +
+                "FROM GamesPlayed " +
+                "WHERE UserID = @userId " +
+                "ORDER BY GameScore DESC";
+
+            SqlCommand cmd = new SqlCommand(sqlState, connection);
+            cmd.Parameters.AddWithValue("@userId", userID);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader userReader = cmd.ExecuteReader();
+                List<string[]> userPlays = new List<string[]>();
+
+                while (userReader.Read())
+                {
+                    string[] play = new string[3];
+                    
+                    switch (userReader["BoardID"].ToString())
+                    {
+                        case "1":
+                            play[0] = "Black";
+                            break;
+                        case "2":
+                            play[0] = "Orange";
+                            break;
+                        case "3":
+                            play[0] = "Yellow";
+                            break;
+                        case "4":
+                            play[0] = "Purple";
+                            break;
+                        case "5":
+                            play[0] = "Pink";
+                            break;
+                        case "6":
+                            play[0] = "Green";
+                            break;
+                        case "7":
+                            play[0] = "Blue";
+                            break;
+                    }
+
+                    DateTime dateTime = (DateTime)userReader["Date"];
+                    play[1] = dateTime.ToShortDateString();
+                    play[2] = userReader["GameScore"].ToString();
+                    userPlays.Add(play);
+                }
+                return userPlays;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        internal static double[] GetUserStatsById(int userID)
+        {
+            SqlConnection connection = EncoreDB.GetConnection();
+            string sqlState = "SELECT ROUND(AVG(CAST(GameScore AS FLOAT)), 1) AS Average, CAST(Count(GamesPlayed.UserID) AS FLOAT) AS Total " +
+                "FROM GamesPlayed " +
+                "WHERE UserID = @userId";
+
+            SqlCommand cmd = new SqlCommand(sqlState, connection);
+            cmd.Parameters.AddWithValue("@userId", userID);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader userReader = cmd.ExecuteReader();
+                double[] userStats = new double[2];
+
+                if (userReader.Read())
+                {
+                    userStats[0] = (double)userReader["Average"];
+                    userStats[1] = (double)userReader["Total"];
+                    return userStats;
+                } else
+                {
+                    return null;
+                }
+                
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
         internal static bool DoesUsernameExist(string username)
         {
             SqlConnection connection = EncoreDB.GetConnection();
@@ -128,7 +228,7 @@ namespace Encore
             }
         }
 
-        internal static List<string[]> GetUserStats()
+        internal static List<string[]> GetAllUserStats()
         {
             SqlConnection connection = EncoreDB.GetConnection();
             string sqlState = "SELECT MAX(Users.UserID) as userID, MAX(FirstName) as fName, MAX(LastName) as lName, ROUND(AVG(CAST(GameScore AS FLOAT)), 1) AS Average, CAST(Count(GamesPlayed.UserID) AS FLOAT) AS Total " +

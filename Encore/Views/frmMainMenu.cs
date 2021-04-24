@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Encore.Views;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -59,7 +60,10 @@ namespace Encore
 
         private void btnHighScores_Click(object sender, EventArgs e)
         {
-
+            Hide();
+            frmHighScores newScores = new frmHighScores(user);
+            newScores.ShowDialog();
+            Show();
         }
     }
 }
