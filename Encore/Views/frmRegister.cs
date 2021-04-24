@@ -22,38 +22,37 @@ namespace Encore.Views
             bool valid = true;
             string message = "";
             User newUser = new User();
-            do
+            if (UserDB.DoesUsernameExist(txtUsername.Text))
             {
-                if (UserDB.DoesUsernameExist(txtUsername.Text))
-                {
-                    valid = false;
-                    message += "Username is already in use.";
-                }
-                else
-                {
-                    newUser.Username = txtUsername.Text;
-                }
+                valid = false;
+                message += "Username is already in use.";
+            }
+            else
+            {
+                newUser.Username = txtUsername.Text;
+            }
 
-                if (txtPassword1.Text == txtPassword2.Text)
-                {
-                    newUser.setPassword(txtPassword2.Text);
-                } else
-                {
-                    valid = false;
-                    message += "\nPasswords do not match.";
-                }
+            if (txtPassword1.Text == txtPassword2.Text)
+            {
+                newUser.setPassword(txtPassword2.Text);
+            } else
+            {
+                valid = false;
+                message += "\nPasswords do not match.";
+            }
 
-                newUser.Role = "player";
-                newUser.FirstName = txtFirstName.Text;
-                newUser.LastName = txtLastName.Text;
-                if (!valid)
-                {
-                    lblMessage.Text = message;
-                }
-            } while (!valid);
-            UserDB.AddUser(newUser);
-            MessageBox.Show("Thanks for Registering " + newUser.FirstName + "!", "Registration Complete");
-            Close();
+            newUser.Role = "player";
+            newUser.FirstName = txtFirstName.Text;
+            newUser.LastName = txtLastName.Text;
+            if (!valid)
+            {
+                MessageBox.Show(message, "Error");
+            } else
+            {
+                UserDB.AddUser(newUser);
+                MessageBox.Show("Thanks for Registering " + newUser.FirstName + "!", "Registration Complete");
+                Close();
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
