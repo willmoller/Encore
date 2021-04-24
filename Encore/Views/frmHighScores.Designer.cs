@@ -47,6 +47,7 @@ namespace Encore.Views
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
+            this.lvHighScores.Enabled = false;
             this.lvHighScores.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lvHighScores.HideSelection = false;
             this.lvHighScores.Location = new System.Drawing.Point(13, 81);
@@ -93,6 +94,7 @@ namespace Encore.Views
             // 
             // txtAverage
             // 
+            this.txtAverage.Enabled = false;
             this.txtAverage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAverage.Location = new System.Drawing.Point(636, 175);
             this.txtAverage.Name = "txtAverage";
@@ -101,6 +103,7 @@ namespace Encore.Views
             // 
             // txtTotalPlays
             // 
+            this.txtTotalPlays.Enabled = false;
             this.txtTotalPlays.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotalPlays.Location = new System.Drawing.Point(636, 226);
             this.txtTotalPlays.Name = "txtTotalPlays";
