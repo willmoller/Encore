@@ -35,6 +35,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.cboBoardSelection = new System.Windows.Forms.ComboBox();
             this.lblHello = new System.Windows.Forms.Label();
+            this.btnLogOff = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,12 +102,24 @@
             this.lblHello.TabIndex = 6;
             this.lblHello.Text = "label1";
             // 
+            // btnLogOff
+            // 
+            this.btnLogOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLogOff.Location = new System.Drawing.Point(483, 385);
+            this.btnLogOff.Name = "btnLogOff";
+            this.btnLogOff.Size = new System.Drawing.Size(157, 53);
+            this.btnLogOff.TabIndex = 7;
+            this.btnLogOff.Text = "Log Off";
+            this.btnLogOff.UseVisualStyleBackColor = true;
+            this.btnLogOff.Click += new System.EventHandler(this.btnLogOff_Click);
+            // 
             // frmMainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnLogOff);
             this.Controls.Add(this.lblHello);
             this.Controls.Add(this.cboBoardSelection);
             this.Controls.Add(this.pictureBox1);
@@ -131,6 +144,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ComboBox cboBoardSelection;
         private System.Windows.Forms.Label lblHello;
+        private System.Windows.Forms.Button btnLogOff;
     }
 }
 
