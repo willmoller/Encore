@@ -13,17 +13,7 @@ using System.Windows.Forms;
 namespace Encore
 {
     // don't allow two wilds to be selected if there's only 1 wild selection left to pick.
-    // allow game to end if last turn has no valid moves.
-    // add Buttons:
-        // Return to Home
-        // Cancel Game
-        // Play Again
     // add legal moves validation? or, allow create visual to indicate to user to skip this turn (in case of no valid moves).
-    // put up score message based on final score.
-    // save score to database.
-    // create login (DONE)
-    // create admin view to see stats by user or board
-    // create user homepage - select board to play and view stats
 
     public partial class frmGame : Form
     {
@@ -37,10 +27,11 @@ namespace Encore
         private DieColor colorDieSelected;
         private bool numberSelected = false;
         private bool colorSelected = false;
+        private bool boxesAvailable = false;
         private int turnsLeft, clicksLeft, boardID;
         private List<string> boxGroupNames;
         private User user;
-
+        private string message;
         public frmGame(int boardID, User user)
         {
             this.boardID = boardID;
@@ -92,6 +83,9 @@ namespace Encore
             CreatePictureBoxes(Board.PinkSquares, Color.HotPink);
             CreatePictureBoxes(Board.YellowSquares, Color.Yellow);
             BackColor = Board.BackgroundColor;
+
+            message = "Click on 'Roll' to start the game.";
+            lblTurn.Text = message;
 
             SetHColumn();
             SetDice();
@@ -271,6 +265,10 @@ namespace Encore
             clickedBox.BorderStyle = BorderStyle.FixedSingle;   
             clicksLeft--;
 
+            message = "Clicks left: " + clicksLeft +
+                        "\nClick on highlighted Squares based on your Selection";
+            lblTurn.Text = message;
+
             // use clickedBox's name to get all boxes with same Group into a List<>.
             // determine boxes in the List<> that are adjacent to it to make them "CanClick" and Enabled
             boxGroupNames = Board.GetGroup(clickedBox);
@@ -393,6 +391,9 @@ namespace Encore
                     btnRoll.BackColor = Color.DarkGray;
                     FinishGame();
                 }
+
+                message = "Click 'Roll' to start the next turn.";
+                lblTurn.Text = message;
             }
         }
 
@@ -407,51 +408,54 @@ namespace Encore
             txtTotalScore.Text = totalPoints.ToString();
             GamesPlayedDB.InsertGamePlayed(totalPoints, user.UserID, boardID);
 
-            string message = "";
+            message = "Game Over.\nSelect 'Reset' to play again or 'Done' to return to your Home Page.";
+            lblTurn.Text = message;
+
+            string messagePop = "";
             switch (totalPoints)
             {
                 case int n when n < 0:
-                    message = "You should be ashamed. We will be alerting your friends.";
+                    messagePop = "You should be ashamed. We will be alerting your friends.";
                     break;
                 case 0:
-                    message = "Checkers. Do you like checkers?";
+                    messagePop = "Checkers. Do you like checkers?";
                     break;
                 case int n when n > 0 && n <= 4:
-                    message = "Maybe there's something else you could practice?";
+                    messagePop = "Maybe there's something else you could practice?";
                     break;
                 case int n when n > 4 && n <= 8:
-                    message = "Not very good at all.";
+                    messagePop = "Not very good at all.";
                     break;
                 case int n when n > 8 && n <= 12:
-                    message = "Was that your first try?";
+                    messagePop = "Was that your first try?";
                     break;
                 case int n when n > 12 && n <= 16:
-                    message = "Ok, but I bet you do better on your next try.";
+                    messagePop = "Ok, but I bet you do better on your next try.";
                     break;
                 case int n when n > 16 && n <= 20:
-                    message = "That was probably not your first time.";
+                    messagePop = "That was probably not your first time.";
                     break;
                 case int n when n > 20 && n <= 24:
-                    message = "that went well.";
+                    messagePop = "that went well.";
                     break;
                 case int n when n > 24 && n <= 28:
-                    message = "Hopefully done without cheating.";
+                    messagePop = "Hopefully done without cheating.";
                     break;
                 case int n when n > 28 && n <= 32:
-                    message = "Excellent! A great result!";
+                    messagePop = "Excellent! A great result!";
                     break;
                 case int n when n > 32 && n <= 36:
-                    message = "You could be a professional ENCORE! player!";
+                    messagePop = "You could be a professional ENCORE! player!";
                     break;
                 case int n when n > 36 && n <= 40:
-                    message = "Do your friends call you The Brain?";
+                    messagePop = "Do your friends call you The Brain?";
                     break;
                 case int n when n > 40:
-                    message = "So there are super heroes!";
+                    messagePop = "So there are super heroes!";
                     break;
             }
 
-            MessageBox.Show("Your score was " + totalPoints + ".\n\n" + message, "Game Over");
+            MessageBox.Show("Your score was " + totalPoints + ".\n\n" + messagePop, "Game Over");
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -479,9 +483,14 @@ namespace Encore
             if (turnsLeft == 0)
             {
                 FinishGame();
+                message = "Game Over.\nSelect 'Reset' to play again or 'Done' to return to your Home Page.";
+                lblTurn.Text = message;
             }
             else
             {
+                message = "Select a Number Die and Color Die.";
+                lblTurn.Text = message;
+
                 pboColorDie1.Enabled = true;
                 pboColorDie2.Enabled = true;
                 pboNumberDie1.Enabled = true;
@@ -644,7 +653,7 @@ namespace Encore
 
         private void ShowAvailableSquares(DieNumber numberDieSelected, DieColor colorDieSelected)
         {
-
+            boxesAvailable = false;
             string dieColor = colorDieSelected.getColor().Substring(0, 1);
             int dieNumber = numberDieSelected.getNumberFace();
             clicksLeft = dieNumber;
@@ -660,8 +669,19 @@ namespace Encore
                         box.Enabled = true;
                         btnRoll.Enabled = true;
                         btnRoll.BackColor = SystemColors.Control;
+                        boxesAvailable = true;
                     }
-
+                }
+                if (!boxesAvailable)
+                {
+                    message = "No eligible boxes for this combination." +
+                        "\nSelect a new combination of dice or click 'Roll' to start your next turn.";
+                    lblTurn.Text = message;
+                } else
+                {
+                    message = "Clicks left: Up to " + clicksLeft +
+                        "\nClick on highlighted Squares based on your Selection";
+                    lblTurn.Text = message;
                 }
 
             } else if (dieColor == "w")
@@ -673,7 +693,19 @@ namespace Encore
                     {
                         box.BorderStyle = BorderStyle.Fixed3D;
                         box.Enabled = true;
+                        boxesAvailable = true;
                     }
+                }
+                if (!boxesAvailable)
+                {
+                    message = "No eligible boxes for this combination." +
+                        "\nSelect a new combination of dice or click 'Roll' to start your next turn.";
+                    lblTurn.Text = message;
+                } else
+                {
+                    message = "Clicks left: " + clicksLeft +
+                        "\nClick on highlighted Squares based on your Selection";
+                    lblTurn.Text = message;
                 }
 
             } else if (dieNumber == -1)
@@ -688,9 +720,20 @@ namespace Encore
                         box.Enabled = true;
                         btnRoll.Enabled = true;
                         btnRoll.BackColor = SystemColors.Control;
-                    }
+                        boxesAvailable = true;
+                    }                    
                 }
-
+                if (!boxesAvailable)
+                {
+                    message = "No eligible boxes for this combination." +
+                        "\nSelect a new combination of dice or click 'Roll' to start your next turn.";
+                    lblTurn.Text = message;
+                } else
+                {
+                    message = "Clicks left: Up to " + clicksLeft +
+                        "\nClick on highlighted Squares based on your Selection";
+                    lblTurn.Text = message;
+                }
             } else
             {
                 // specific number and color only
@@ -702,7 +745,19 @@ namespace Encore
                     {
                         box.BorderStyle = BorderStyle.Fixed3D;
                         box.Enabled = true;
+                        boxesAvailable = true;
                     }
+                }
+                if (!boxesAvailable)
+                {
+                    message = "No eligible boxes for this combination." +
+                        "\nSelect a new combination of dice or click 'Roll' to start your next turn.";
+                    lblTurn.Text = message;
+                } else
+                {
+                    message = "Clicks left: " + clicksLeft +
+                        "\nClick on highlighted Squares based on your Selection";
+                    lblTurn.Text = message;
                 }
             }
         }

@@ -63,6 +63,7 @@
             this.pboWild8 = new System.Windows.Forms.PictureBox();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
+            this.lblTurn = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pboNumberDie1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboNumberDie2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pboColorDie1)).BeginInit();
@@ -414,12 +415,24 @@
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
+            // lblTurn
+            // 
+            this.lblTurn.AutoSize = true;
+            this.lblTurn.BackColor = System.Drawing.Color.White;
+            this.lblTurn.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTurn.Location = new System.Drawing.Point(332, 39);
+            this.lblTurn.Name = "lblTurn";
+            this.lblTurn.Size = new System.Drawing.Size(85, 29);
+            this.lblTurn.TabIndex = 38;
+            this.lblTurn.Text = "label7";
+            // 
             // frmGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1632, 753);
+            this.Controls.Add(this.lblTurn);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.pboWild8);
@@ -519,5 +532,6 @@
         private System.Windows.Forms.PictureBox pboWild8;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Label lblTurn;
     }
 }
