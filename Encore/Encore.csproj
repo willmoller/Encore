@@ -72,16 +72,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\GamesPlayedDB.cs" />
+    <Compile Include="EncoreDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EncoreDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Models\Board.cs" />
     <Compile Include="DataAccess\BoardDB.cs" />
     <Compile Include="Models\Dice.cs" />
     <Compile Include="Models\Die.cs" />
     <Compile Include="Models\DieColor.cs" />
-    <Compile Include="encoreDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>encoreDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="DataAccess\EncoreDB.cs" />
     <Compile Include="Models\GamePlayed.cs" />
     <Compile Include="Views\frmAdminView.cs">
@@ -164,16 +164,16 @@
     <EmbeddedResource Include="Views\frmRules.resx">
       <DependentUpon>frmRules.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="encoreDataSet.xsc">
-      <DependentUpon>encoreDataSet.xsd</DependentUpon>
+    <None Include="EncoreDataSet.xsc">
+      <DependentUpon>EncoreDataSet.xsd</DependentUpon>
     </None>
-    <None Include="encoreDataSet.xsd">
+    <None Include="EncoreDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>encoreDataSet.Designer.cs</LastGenOutput>
+      <LastGenOutput>EncoreDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="encoreDataSet.xss">
-      <DependentUpon>encoreDataSet.xsd</DependentUpon>
+    <None Include="EncoreDataSet.xss">
+      <DependentUpon>EncoreDataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

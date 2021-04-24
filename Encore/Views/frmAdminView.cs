@@ -29,7 +29,6 @@ namespace Encore.Views
 
             rdoUser.CheckedChanged += radioButtons_CheckChanged;
             rdoBoard.CheckedChanged += radioButtons_CheckChanged;
-            rdoAll.CheckedChanged += radioButtons_CheckChanged;
 
             idList = new List<int>();
         }
@@ -38,58 +37,32 @@ namespace Encore.Views
         {
             // add code to empty list
             lvList.Items.Clear();
-            idList.Clear();
 
             if (rdoUser.Checked)
             {
-                users = UserDB.GetAllUsers();
-                //lboList.Items.Add("User ID\tFirst\tLast\n");
-                foreach (User user in users)
+                List<string[]> userStats = UserDB.GetUserStats();
+                int i = 0;
+                foreach (string[] user in userStats)
                 {
-                    lvList.Items.Add(user.UserID.ToString()).SubItems.Add(user.FirstName + " " + user.LastName);
-                    idList.Add(user.UserID);
-                }
-            }
-            else if (rdoBoard.Checked)
-            {
-                List<Board> boards = BoardDB.GetAllBoards();
-                //lboList.Items.Add("Board ID\tName\n");
-                foreach (Board board in boards)
-                {
-                    lvList.Items.Add(board.BoardID.ToString()).SubItems.Add(board.BoardName);
-                    idList.Add(board.BoardID);
+                    lvList.Items.Add(user[0]);
+                    lvList.Items[i].SubItems.Add(user[1]);
+                    lvList.Items[i].SubItems.Add(user[2]);
+                    lvList.Items[i].SubItems.Add(user[3]);
+                    i++;
                 }
             }
             else
             {
-                //lvList.Enabled = false;
-                lvList.Items.Add("ALL").SubItems.Add("GAMES PLAYED");
-                // get all users and the average of all user scores to 1 decimal place
-                List<double> stats = BoardDB.GetStatsAllBoards();
-                txtAverage.Text = Math.Round(stats[0], 1).ToString();
-                txtPlays.Text = Math.Round(stats[1], 1).ToString();
-            }
-        }
-
-        private void rdoUser_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lvList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ListView.SelectedIndexCollection indices = lvList.SelectedIndices;
-            if (rdoUser.Checked)
-            {
-                List<double> stats = UserDB.GetStatsByUser(1);
-                txtAverage.Text = Math.Round(stats[0], 1).ToString();
-                txtPlays.Text = Math.Round(stats[1], 1).ToString();
-            }
-            else if (rdoBoard.Checked)
-            {
-                List<double> stats = BoardDB.GetStatsByBoard(1);
-                txtAverage.Text = Math.Round(stats[0], 1).ToString();
-                txtPlays.Text = Math.Round(stats[1], 1).ToString();
+                List<string[]> boardStats = BoardDB.GetStatsAllBoards();
+                int i = 0;
+                foreach (string[] board in boardStats)
+                {
+                    lvList.Items.Add(board[0]);
+                    lvList.Items[i].SubItems.Add(board[1]);
+                    lvList.Items[i].SubItems.Add(board[2]);
+                    lvList.Items[i].SubItems.Add(board[3]);
+                    i++;
+                }
             }
         }
     }

@@ -16,7 +16,14 @@ namespace Encore
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        public void setPassword(string pwd)
+        {
+            password = pwd;
+        }
 
-
+        public string getPassword()
+        {
+            return password;
+        }
     }
 }

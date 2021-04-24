@@ -178,30 +178,57 @@ namespace Encore
             }
         }
 
-        internal static List<double> GetStatsAllBoards()
+        internal static List<string[]> GetStatsAllBoards()
         {
             SqlConnection connection = EncoreDB.GetConnection();
-            string sqlState = "SELECT ROUND(AVG(CAST(GameScore AS FLOAT)), 1) AS Average, CAST(Count(UserID) AS FLOAT) AS Total " +
-                "FROM GamesPlayed ";
+            string sqlState = "SELECT MAX(Board.BoardID) as boardID, ROUND(AVG(CAST(GameScore AS FLOAT)), 1) AS Average, CAST(Count(GamesPlayed.UserID) AS FLOAT) AS Total " +
+                "FROM GamesPlayed " +
+                "INNER JOIN Board " +
+                "ON GamesPlayed.BoardID = Board.BoardID " +
+                "GROUP BY GamesPlayed.BoardID";
 
             SqlCommand cmd = new SqlCommand(sqlState, connection);
 
             try
             {
                 connection.Open();
-                SqlDataReader userReader = cmd.ExecuteReader();
-                List<double> stats = new List<double>();
+                SqlDataReader boardReader = cmd.ExecuteReader();
+                List<string[]> stats = new List<string[]>();
 
-                if (userReader.Read())
+                while (boardReader.Read())
                 {
-                    stats.Add((double)userReader["Average"]);
-                    stats.Add((double)userReader["Total"]);
-                    return stats;
+                    string[] board = new string[4];
+                    board[0] = boardReader["boardID"].ToString();
+                    switch (board[0])
+                    {
+                        case "1":
+                            board[1] = "Blue";
+                            break;
+                        case "2":
+                            board[1] = "Orange";
+                            break;
+                        case "3":
+                            board[1] = "Yellow";
+                            break;
+                        case "4":
+                            board[1] = "Purple";
+                            break;
+                        case "5":
+                            board[1] = "Pink";
+                            break;
+                        case "6":
+                            board[1] = "Green";
+                            break;
+                        case "7":
+                            board[1] = "Blue";
+                            break;
+
+                    }
+                    board[2] = boardReader["Average"].ToString();
+                    board[3] = boardReader["Total"].ToString();
+                    stats.Add(board);
                 }
-                else
-                {
-                    return null;
-                }
+                return stats;
 
             }
             catch (SqlException ex)

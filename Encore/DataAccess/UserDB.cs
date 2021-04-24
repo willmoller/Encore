@@ -4,28 +4,77 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Encore
 {
     public class UserDB
     {
-        public static bool AddUser(string sql)
+        public static void AddUser(User user)
         {
-            using (SqlCommand cmd = new SqlCommand())
+            SqlConnection connection = EncoreDB.GetConnection();
+            string statement = "INSERT INTO Users (Username, Password, Role, FirstName, LastName) " +
+                "VALUES (@username, @pwd, @role, @fName, @lName)";
+
+            SqlCommand selectCommand = new SqlCommand(statement, connection);
+
+            selectCommand.Parameters.AddWithValue("@username", user.Username);
+            selectCommand.Parameters.AddWithValue("@pwd", user.getPassword());
+            selectCommand.Parameters.AddWithValue("@role", user.Role);
+            selectCommand.Parameters.AddWithValue("@fName", user.FirstName);
+            selectCommand.Parameters.AddWithValue("@lName", user.LastName);
+
+            try
             {
-                try
+                connection.Open();
+                int result = selectCommand.ExecuteNonQuery();
+                // Check Error
+                if (result < 0)
                 {
-                    cmd.CommandText += sql;
-                    cmd.Connection = EncoreDB.GetConnection();
-                    cmd.Connection.Open();
-                    cmd.ExecuteNonQuery();
-                    cmd.Connection.Close();
+                    MessageBox.Show("Error inserting data into Database!", "Error");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
+        internal static bool DoesUsernameExist(string username)
+        {
+            SqlConnection connection = EncoreDB.GetConnection();
+            string statement = "SELECT Username " +
+                "FROM Users " +
+                "WHERE (Username = @username)";
+
+            SqlCommand selectCommand = new SqlCommand(statement, connection);
+            selectCommand.Parameters.AddWithValue("@username", username);
+
+            try
+            {
+                connection.Open();
+                SqlDataReader userReader = selectCommand.ExecuteReader();
+
+                if (userReader.Read())
+                {
                     return true;
                 }
-                catch
+                else
                 {
                     return false;
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
@@ -79,70 +128,33 @@ namespace Encore
             }
         }
 
-        public static User GetUserByUserId(string userId)
+        internal static List<string[]> GetUserStats()
         {
             SqlConnection connection = EncoreDB.GetConnection();
-            string sqlState = "Select LastName, FirstName, UserRole from Users where UserId = @userId";
-
-            SqlCommand cmd = new SqlCommand(sqlState, connection);
-            cmd.Parameters.AddWithValue("UserId", userId);
-
-            try
-            {
-                connection.Open();
-                SqlDataReader userReader = cmd.ExecuteReader();
-
-                if (userReader.Read())
-                {
-                    User user = new User();
-                    user.FirstName = userReader["FirstName"].ToString();
-                    user.LastName = userReader["LastName"].ToString();
-                    user.Role = userReader["UserRole"].ToString();
-                    return user;
-                }
-                else
-                {
-                    return null;
-                }
-
-            }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
-
-        internal static List<double> GetStatsByUser(int userId)
-        {
-            SqlConnection connection = EncoreDB.GetConnection();
-            string sqlState = "SELECT ROUND(AVG(CAST(GameScore AS FLOAT)), 1) AS Average, CAST(Count(UserID) AS FLOAT) AS Total " +
+            string sqlState = "SELECT MAX(Users.UserID) as userID, MAX(FirstName) as fName, MAX(LastName) as lName, ROUND(AVG(CAST(GameScore AS FLOAT)), 1) AS Average, CAST(Count(GamesPlayed.UserID) AS FLOAT) AS Total " +
                 "FROM GamesPlayed " +
-                "WHERE UserID = @userId";
+                "INNER JOIN Users " +
+                "ON GamesPlayed.UserID = Users.UserID " +
+                "GROUP BY GamesPlayed.UserID";
 
             SqlCommand cmd = new SqlCommand(sqlState, connection);
-            cmd.Parameters.AddWithValue("@userId", userId);
 
             try
             {
                 connection.Open();
                 SqlDataReader userReader = cmd.ExecuteReader();
-                List<double> stats = new List<double>();
+                List<string[]> userStats = new List<string[]>();
 
-                if (userReader.Read())
+                while (userReader.Read())
                 {
-                    stats.Add((double)userReader["Average"]);
-                    stats.Add((double)userReader["Total"]);
-                    return stats;
+                    string[] user = new string[4];
+                    user[0] = userReader["userID"].ToString();
+                    user[1] = userReader["fName"].ToString() + " " + userReader["lName"].ToString();
+                    user[2] = userReader["Average"].ToString();
+                    user[3] = userReader["Total"].ToString();
+                    userStats.Add(user);
                 }
-                else
-                {
-                    return null;
-                }
-
+                return userStats;
             }
             catch (SqlException ex)
             {

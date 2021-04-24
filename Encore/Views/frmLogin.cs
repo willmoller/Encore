@@ -48,7 +48,10 @@ namespace Encore.Views
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
-
+            Hide();
+            frmRegister register = new frmRegister();
+            register.ShowDialog();
+            Show();
         }
     }
 }
