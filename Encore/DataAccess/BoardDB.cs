@@ -40,7 +40,7 @@ namespace Encore
                             board.BackgroundColor = Color.DarkOrange;
                             break;
                         case "y":
-                            board.BackgroundColor = Color.Goldenrod;
+                            board.BackgroundColor = Color.PaleGoldenrod;
                             break;
                         case "p":
                             board.BackgroundColor = Color.Purple;

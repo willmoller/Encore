@@ -55,7 +55,7 @@ namespace Encore
 
         private void btnRules_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://boardgamegeek.com/file/download_redirect/32b683829e08acb167abc2469f0c4b25b380d7aa12f43aa0/Encore+rules+small+1.pdf");
+            System.Diagnostics.Process.Start("https://boardgamegeek.com/boardgame/206931/encore/files");
         }
 
         private void btnHighScores_Click(object sender, EventArgs e)
